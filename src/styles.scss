@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/core/colors';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/core/variables';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/core/variables-pro';
+
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/sections-pro/_contacts-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/sections-pro/_magazine-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/sections-pro/_pricing-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/sections-pro/_social-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/sections-pro/_team-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/sections-pro/_templates-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/sections-pro/_testimonials-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/addons-pro/_blog-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/addons-pro/_chat-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/addons-pro/_ecommerce-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/addons-pro/_steppers-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/addons-pro/_timeline-pro.scss';
+@import 'node_modules/ng-uikit-pro-standard/assets/scss/addons-pro/_timelines-pro.scss';
+
+/* Header SCSS */
+@import 'src/assets/css/header.scss';
+
+/* Footer SCSS */
+@import 'src/assets/css/footer.scss';
+
+/* Flip-card SCSS */
+@import 'src/assets/css/flip-card.scss';
+
+/* Card SCSS */
+@import 'src/assets/css/card.scss';
+
+/* Scroll Margin Top for Header SCSS */
+@import 'src/assets/css/scroll.scss';
+
+/* Quill Editor SCSS */
+@import "src/assets/css/editor.scss";
+

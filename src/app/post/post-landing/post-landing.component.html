@@ -1,0 +1,216 @@
+<!--Thread Section Wrapper-->
+<section id="thread-landing" class="container-fluid">
+
+  <div class="header-placeholder"></div>
+
+  <mdb-card id="thread-landing-content">
+    <mdb-card-header class="blue white-text text-center py-4">
+      <h1><strong>Newest Posts</strong></h1>
+    </mdb-card-header>
+
+    <mdb-card-body>
+
+      <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'" [animation]="'slide'">
+        <mdb-carousel-item *ngFor="let item of postSlides; let i = index">
+          <div class="col-md-4 pb-2" *ngFor="let card of item; let cardIndex = index">
+            <mdb-card class="my-1 h-100">
+              <div class="view overlay">
+                <a href="#">
+                  <mdb-card-img [src]="card.img" alt="Card image cap"></mdb-card-img>
+                  <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
+                  </div>
+                </a>
+              </div>
+              <mdb-card-body>
+                <mdb-card-title>
+                  <h4>{{ card.title }}</h4>
+                </mdb-card-title>
+                <p>{{ card.description }}</p>
+              </mdb-card-body>
+              <mdb-card-footer>
+                <a href="#" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Read More</a>
+              </mdb-card-footer>
+            </mdb-card>
+          </div>
+        </mdb-carousel-item>
+      </mdb-carousel>
+    </mdb-card-body>
+  </mdb-card>
+
+  <mdb-card id="post-landing-content" style="margin-top: 50px">
+    <mdb-card-header class="blue white-text text-center py-4">
+      <h1><strong>All Categories</strong></h1>
+    </mdb-card-header>
+
+    <mdb-card-body>
+
+      <!-- Thread Row 1 -->
+      <div class="row">
+        <!-- Thread 1 -->
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect>
+          <div class="view overlay card">
+            <a>
+              <img
+                class="img-fluid"
+                src="assets/img/thread1.jpg"
+                alt="img"
+              />
+              <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
+                <p class="white-text">Strong overlay</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- /Thread 1 -->
+
+        <!-- Thread 2 -->
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect>
+          <div class="view overlay card">
+            <a>
+              <img
+                class="img-fluid"
+                src="assets/img/thread2.jpg"
+                alt="img"
+              />
+              <div class="mask flex-center rgba-grey-strong">
+                <p class="white-text">Strong overlay</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- /Thread 2 -->
+
+        <!-- Thread 3 -->
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect>
+          <div class="view overlay card">
+            <a>
+              <img
+                class="img-fluid"
+                src="assets/img/thread3.jpg"
+                alt="img"
+              />
+              <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
+                <p class="white-text">Strong overlay</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- /Thread 3 -->
+
+      <!-- Thread Row 2 -->
+      <div class="row">
+        <!-- Thread 4 -->
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect>
+          <div class="view overlay card">
+            <a>
+              <img
+                class="img-fluid"
+                src="assets/img/thread4.jpg"
+                alt="img"
+              />
+              <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
+                <p class="white-text">Strong overlay</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- /Thread 4 -->
+
+        <!-- Thread 5 -->
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect>
+          <div class="view overlay card">
+            <a>
+              <img
+                class="img-fluid"
+                src="assets/img/thread5.jpg"
+                alt="img"
+              />
+              <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
+                <p class="white-text">Strong overlay</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- /Thread 5 -->
+
+        <!-- Thread 6 -->
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect>
+          <div class="view overlay card">
+            <a>
+              <img
+                class="img-fluid"
+                src="assets/img/thread6.jpg"
+                alt="img"
+              />
+              <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
+                <p class="white-text">Strong overlay</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- /Thread 6 -->
+      </div>
+      <!-- /Thread Row 2 -->
+
+      <!-- Thread Row 3 -->
+      <div class="row">
+        <!-- Thread 7 -->
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect>
+          <div class="view overlay card">
+            <a>
+              <img
+                class="img-fluid"
+                src="assets/img/thread7.jpg"
+                alt="img"
+              />
+              <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
+                <p class="white-text">Strong overlay</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- /Thread 7 -->
+
+        <!-- Thread 8 -->
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect>
+          <div class="view overlay card">
+            <a>
+              <img
+                class="img-fluid"
+                src="assets/img/thread8.jpg"
+                alt="img"
+              />
+              <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
+                <p class="white-text">Strong overlay</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- /Thread 8 -->
+
+        <!-- Thread 9 -->
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect>
+          <div class="view overlay card">
+            <a>
+              <img
+                class="img-fluid"
+                src="assets/img/thread9.jpg"
+                alt="img"
+              />
+              <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
+                <p class="white-text">Strong overlay</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- /Thread 9 -->
+      </div>
+      <!-- /Thread Row 3 -->
+    </mdb-card-body>
+  </mdb-card>
+
+  <div class="footer-placeholder"></div>
+
+</section>
+<!--/Thread Section Wrapper-->

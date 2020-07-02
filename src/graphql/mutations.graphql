@@ -1,0 +1,271 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateThread(
+  $input: CreateThreadInput!
+  $condition: ModelThreadConditionInput
+) {
+  createThread(input: $input, condition: $condition) {
+    id
+    subject
+    featuredImg {
+      bucket
+      region
+      key
+    }
+    posts {
+      items {
+        id
+        title
+        content
+        threadID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateThread(
+  $input: UpdateThreadInput!
+  $condition: ModelThreadConditionInput
+) {
+  updateThread(input: $input, condition: $condition) {
+    id
+    subject
+    featuredImg {
+      bucket
+      region
+      key
+    }
+    posts {
+      items {
+        id
+        title
+        content
+        threadID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteThread(
+  $input: DeleteThreadInput!
+  $condition: ModelThreadConditionInput
+) {
+  deleteThread(input: $input, condition: $condition) {
+    id
+    subject
+    featuredImg {
+      bucket
+      region
+      key
+    }
+    posts {
+      items {
+        id
+        title
+        content
+        threadID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation CreatePost(
+  $input: CreatePostInput!
+  $condition: ModelPostConditionInput
+) {
+  createPost(input: $input, condition: $condition) {
+    id
+    title
+    content
+    featuredImg {
+      bucket
+      region
+      key
+    }
+    threadID
+    thread {
+      id
+      subject
+      featuredImg {
+        bucket
+        region
+        key
+      }
+      posts {
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdatePost(
+  $input: UpdatePostInput!
+  $condition: ModelPostConditionInput
+) {
+  updatePost(input: $input, condition: $condition) {
+    id
+    title
+    content
+    featuredImg {
+      bucket
+      region
+      key
+    }
+    threadID
+    thread {
+      id
+      subject
+      featuredImg {
+        bucket
+        region
+        key
+      }
+      posts {
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation DeletePost(
+  $input: DeletePostInput!
+  $condition: ModelPostConditionInput
+) {
+  deletePost(input: $input, condition: $condition) {
+    id
+    title
+    content
+    featuredImg {
+      bucket
+      region
+      key
+    }
+    threadID
+    thread {
+      id
+      subject
+      featuredImg {
+        bucket
+        region
+        key
+      }
+      posts {
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateContact(
+  $input: CreateContactInput!
+  $condition: ModelContactConditionInput
+) {
+  createContact(input: $input, condition: $condition) {
+    id
+    name
+    email
+    subject
+    content
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateContact(
+  $input: UpdateContactInput!
+  $condition: ModelContactConditionInput
+) {
+  updateContact(input: $input, condition: $condition) {
+    id
+    name
+    email
+    subject
+    content
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteContact(
+  $input: DeleteContactInput!
+  $condition: ModelContactConditionInput
+) {
+  deleteContact(input: $input, condition: $condition) {
+    id
+    name
+    email
+    subject
+    content
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}

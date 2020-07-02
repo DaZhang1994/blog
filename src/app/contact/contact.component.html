@@ -1,0 +1,140 @@
+<!--Thread Section Wrapper-->
+<section id="contact-landing" class="container-fluid">
+
+  <div class="header-placeholder"></div>
+
+  <mdb-card id="contact-landing-content">
+    <mdb-card-header class="blue text-center py-4 text-white">
+      <h1><strong>Contact Me</strong></h1>
+    </mdb-card-header>
+
+    <mdb-card-body>
+      <!--Section heading-->
+
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-lg-5 my-4">
+
+          <!--Form with header-->
+          <mdb-card>
+
+            <mdb-card-body>
+              <!--Header-->
+              <div class="form-header blue accent-3">
+                <h3>
+                  <mdb-icon fas icon="envelope"></mdb-icon> Write to me:</h3>
+              </div>
+
+              <p>Please leave your short message here :)</p>
+              <br>
+
+              <form
+                [formGroup]="contactForm"
+                (ngSubmit)="onSubmit(contactForm.value)"
+              >
+                <div class="md-form">
+                  <mdb-icon fas icon="user" class="prefix"></mdb-icon>
+                  <input type="text" id="nameInput" class="form-control" formControlName="name" mdbInput mdbValidate>
+                  <label for="nameInput">Your Name</label>
+                  <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)">Your Name is Required</mdb-error>
+                  <mdb-success *ngIf="name.valid && (name.dirty || name.touched)"></mdb-success>
+                </div>
+
+                <div class="md-form">
+                  <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+                  <input type="text" id="emailInput" class="form-control" formControlName="email" mdbInput mdbValidate>
+                  <label for="emailInput">Your Email</label>
+                  <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">Your Valid Email is Required</mdb-error>
+                  <mdb-success *ngIf="email.valid && (email.dirty || email.touched)"></mdb-success>
+                </div>
+
+                <div class="md-form">
+                  <mdb-icon fas icon="tag" class="prefix"></mdb-icon>
+                  <input type="text" id="subjectInput" class="form-control" formControlName="subject" mdbInput mdbValidate>
+                  <label for="subjectInput">Your Subject</label>
+                  <mdb-error *ngIf="subject.invalid && (subject.dirty || subject.touched)">Your Subject is Required</mdb-error>
+                  <mdb-success *ngIf="subject.valid && (subject.dirty || subject.touched)"></mdb-success>
+                </div>
+
+                <div class="md-form">
+                  <mdb-icon fas icon="pencil-alt" class="prefix"></mdb-icon>
+                  <textarea type="text" id="contentInput" class="md-textarea form-control" formControlName="content" mdbInput mdbValidate></textarea>
+                  <label for="contentInput">Your Content</label>
+                  <mdb-error *ngIf="content.invalid && (content.dirty || content.touched)">Your Content is Required</mdb-error>
+                  <mdb-success *ngIf="content.valid && (content.dirty || content.touched)"></mdb-success>
+                </div>
+
+                <div class="text-center">
+                  <button mdbBtn color="blue" class="accent-3 my-4 waves-effect z-depth-0" mdbWavesEffect
+                          type="submit" [disabled]="!(name.valid && email.valid && subject.valid && content.valid)">
+                    Submit
+                  </button>
+                </div>
+
+              </form>
+
+            </mdb-card-body>
+
+          </mdb-card>
+          <!--Form with header-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-7">
+          <mdb-card>
+            <mdb-card-body style="padding: 0; border: 1px solid transparent">
+
+              <!--Google map-->
+              <agm-map class="z-depth-1-half map-container card" style="height: 500px;" [latitude]="map.lat" [longitude]="map.lng" [zoom]="11">
+                <agm-marker [latitude]="map.lat" [longitude]="map.lng">
+                  <agm-info-window [isOpen]="true">
+                    <h6>1015 Sunset Blvd, Arcadia, CA 91007</h6>
+                  </agm-info-window>
+                </agm-marker>
+              </agm-map>
+
+            </mdb-card-body>
+          </mdb-card>
+
+          <br>
+          <!--Buttons-->
+          <div class="row text-center">
+            <div class="col-md-4">
+              <a mdbBtn floating="true" color="blue" class="accent-1 waves-light" mdbWavesEffect href="https://www.google.com/maps/place/1015+Sunset+Blvd,+Arcadia,+CA+91007/@34.1275606,-118.0648808,15z/data=!4m13!1m7!3m6!1s0x80c2dba754e73f19:0xc134ece2d887d53c!2s1015+Sunset+Blvd,+Arcadia,+CA+91007!3b1!8m2!3d34.1275679!4d-118.065234!3m4!1s0x80c2dba754e73f19:0xc134ece2d887d53c!8m2!3d34.1275679!4d-118.065234" target="_blank">
+                <mdb-icon fas icon="map-marked"></mdb-icon>
+              </a>
+              <p>1015 Sunset Blvd, Arcadia</p>
+              <p>CA 91007, United States</p>
+            </div>
+
+            <div class="col-md-4">
+              <a mdbBtn floating="true" color="blue" class="accent-1 waves-light" mdbWavesEffect href="tel:2134319012">
+                <mdb-icon fas icon="phone"></mdb-icon>
+              </a>
+              <p>(213) 431-9012</p>
+              <p>Mon - Fri, 9:00 - 17:00</p>
+            </div>
+
+            <div class="col-md-4">
+              <a mdbBtn floating="true" color="blue" class="accent-1 waves-light" mdbWavesEffect href="mailto:dazhang@da-zhang.com">
+                <mdb-icon fas icon="envelope"></mdb-icon>
+              </a>
+              <p>dazhang@da-zhang.com</p>
+              <p>zhan234@usc.edu</p>
+            </div>
+          </div>
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+    </mdb-card-body>
+  </mdb-card>
+
+  <div class="footer-placeholder"></div>
+
+</section>
+<!--/Thread Section Wrapper-->

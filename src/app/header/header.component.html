@@ -1,0 +1,55 @@
+<header class="h-100">
+  <mdb-navbar
+    SideClass="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar intro-fixed-nav"
+    [containerInside]="false"
+  >
+    <mdb-navbar-brand>
+      <a class="logo navbar-brand" routerLink="/">
+        <strong>Nemo's Blog</strong>
+      </a>
+    </mdb-navbar-brand>
+
+    <links>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link" routerLink="/resume" routerLinkActive="active">Resume</a>
+        </li>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link" routerLink="/posts" routerLinkActive="active">Posts</a>
+        </li>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link" routerLink="/contact"routerLinkActive="active">Contact</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item waves-light text-white" mdbWavesEffect>
+          <a class="nav-link" href="https://github.com/DaZhang1994" target="_blank">
+            <mdb-icon fab icon="github"></mdb-icon>
+          </a>
+        </li>
+        <li class="nav-item waves-light text-white" mdbWavesEffect>
+          <a class="nav-link" href="https://www.linkedin.com/in/da-zhang1994" target="_blank">
+            <mdb-icon fab icon="linkedin-in"></mdb-icon>
+          </a>
+        </li>
+        <li class="nav-item waves-light text-white" mdbWavesEffect>
+          <a class="nav-link" href="https://www.instagram.com/dazhang94" target="_blank">
+            <mdb-icon fab icon="instagram"></mdb-icon>
+          </a>
+        </li>
+        <li class="nav-item waves-light text-white" mdbWavesEffect>
+          <a class="nav-link" href="https://www.youtube.com/channel/UCqCzHxB96sShOkgQDjm1UaQ" target="_blank">
+            <mdb-icon fab icon="youtube"></mdb-icon>
+          </a>
+        </li>
+      </ul>
+      <!-- Collapsible content -->
+    </links>
+  </mdb-navbar>
+</header>
+<!--Main Navigation-->
+
+<router-outlet></router-outlet>
+
+
