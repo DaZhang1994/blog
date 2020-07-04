@@ -14,11 +14,7 @@ query SyncThreads(
     items {
       id
       subject
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       posts {
         nextToken
         startedAt
@@ -37,16 +33,13 @@ query GetThread($id: ID!) {
   getThread(id: $id) {
     id
     subject
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     posts {
       items {
         id
         title
         content
+        featuredImg
         threadID
         _version
         _deleted
@@ -73,11 +66,7 @@ query ListThreads(
     items {
       id
       subject
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       posts {
         nextToken
         startedAt
@@ -108,15 +97,12 @@ query SyncPosts(
       id
       title
       content
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       threadID
       thread {
         id
         subject
+        featuredImg
         _version
         _deleted
         _lastChangedAt
@@ -138,20 +124,12 @@ query GetPost($id: ID!) {
     id
     title
     content
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     threadID
     thread {
       id
       subject
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       posts {
         nextToken
         startedAt
@@ -179,15 +157,12 @@ query ListPosts(
       id
       title
       content
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       threadID
       thread {
         id
         subject
+        featuredImg
         _version
         _deleted
         _lastChangedAt

@@ -1,63 +1,94 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Storage } from 'aws-amplify';
 import { MdbFileUploadComponent } from 'mdb-file-upload';
+import { v4 as uuidv4 } from 'uuid';
+import { APIService } from '../../API.service';
 
 @Component({
   selector: 'app-compose-post',
   templateUrl: './post-compose.component.html',
   styleUrls: ['./post-compose.component.scss']
 })
-export class PostComposeComponent implements OnInit {
+export class PostComposeComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('postFeatureImg')
-  postFeatureImgEl: MdbFileUploadComponent;
+  @ViewChild('postFeaturedImg')
+  postFeaturedImgEl: MdbFileUploadComponent;
 
-  editPostForm: FormGroup;
+  composePostForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  threads: any;
 
+  constructor(private formBuilder: FormBuilder, private apiService: APIService) {
   }
 
-  ngOnInit(): void {
-    this.editPostForm = this.formBuilder.group({
-      postTitle: [ 'Sample Post Title', [ Validators.required ] ],
-      postFeatureImg: [ null, [ Validators.required ] ],
-      postContent: [ null ]
-    })
+  async ngOnInit(): Promise<void> {
+    this.composePostForm = this.formBuilder.group({
+      postTitle: [ null, [ Validators.required ] ],
+      postFeaturedImg: [ null, [ Validators.required ] ],
+      postContent: [ null, [ Validators.required, Validators.nullValidator ] ],
+      postThread: [ null, [ Validators.required, Validators.minLength(8) ] ]
+    });
+
+    this.threads = (await this.apiService.ListThreads()).items;
   }
 
   get postTitle() {
-    return this.editPostForm.get('postTitle');
+    return this.composePostForm.get('postTitle');
   }
 
-  get postFeatureImg() {
-    return this.editPostForm.get('postFeatureImg');
+  get postFeaturedImg() {
+    return this.composePostForm.get('postFeaturedImg');
   }
 
   get postContent() {
-    return this.editPostForm.get('postContent');
+    return this.composePostForm.get('postContent');
+  }
+
+  get postThread() {
+    return this.composePostForm.get('postThread');
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.postFeatureImgEl.textTranslation.fileText = 'Drag and drop or click to add your post feature image.';
-      this.postFeatureImgEl.textTranslation.imageFileText = 'Drag and drop or click to replace your post feature image.';
+      this.postFeaturedImgEl.textTranslation.fileText = 'Drag and drop or click to add your post featured image.';
+      this.postFeaturedImgEl.textTranslation.imageFileText = 'Drag and drop or click to replace your post featured image.';
     })
   }
 
   onFileAdd(file: File) {
-    this.editPostForm.get('postFeatureImg')?.setValue(file);
+    this.postFeaturedImg.setValue(file);
   }
 
   onFileRemove() {
-    this.editPostForm.get('postFeatureImg')?.setValue(null);
+    this.postFeaturedImg.setValue(null);
   }
 
-  onSubmit(editorInput: any) {
-    console.log(editorInput.postTitle);
-    console.log(editorInput.postFeatureImg);
-    console.log(editorInput.postContent);
-  }
+  async onSubmit(editorInput: any) {
+    try {
+      let fileName = null;
+      if(editorInput.postFeaturedImg) {
+        fileName = uuidv4() + '.' + editorInput.postFeaturedImg.name;
+        await Storage.put(fileName, editorInput.postFeaturedImg, {
+          contentType: 'image/jpeg'
+        });
+      }
 
+      await this.apiService.CreatePost({
+        title: editorInput.postTitle,
+        content: editorInput.postContent,
+        featuredImg: fileName,
+        threadID: editorInput.postThread
+      });
+    }
+    catch (e) {
+      console.error(e);
+      alert('Post composed failed! Please try again later!');
+    }
+
+    alert('Post composed successfully!');
+    this.composePostForm.reset();
+    this.postFeaturedImgEl.reset();
+  }
 
 }

@@ -8,18 +8,13 @@ import { Observable } from 'zen-observable-ts';
 export type CreateThreadInput = {
   id?: string | null;
   subject: string;
-  featuredImg?: S3ObjectInput | null;
+  featuredImg?: string | null;
   _version?: number | null;
-};
-
-export type S3ObjectInput = {
-  bucket: string;
-  region: string;
-  key: string;
 };
 
 export type ModelThreadConditionInput = {
   subject?: ModelStringInput | null;
+  featuredImg?: ModelStringInput | null;
   and?: Array<ModelThreadConditionInput | null> | null;
   or?: Array<ModelThreadConditionInput | null> | null;
   not?: ModelThreadConditionInput | null;
@@ -67,7 +62,7 @@ export type ModelSizeInput = {
 export type UpdateThreadInput = {
   id: string;
   subject?: string | null;
-  featuredImg?: S3ObjectInput | null;
+  featuredImg?: string | null;
   _version?: number | null;
 };
 
@@ -80,7 +75,7 @@ export type CreatePostInput = {
   id?: string | null;
   title: string;
   content: string;
-  featuredImg?: S3ObjectInput | null;
+  featuredImg?: string | null;
   threadID: string;
   _version?: number | null;
 };
@@ -88,6 +83,7 @@ export type CreatePostInput = {
 export type ModelPostConditionInput = {
   title?: ModelStringInput | null;
   content?: ModelStringInput | null;
+  featuredImg?: ModelStringInput | null;
   threadID?: ModelIDInput | null;
   and?: Array<ModelPostConditionInput | null> | null;
   or?: Array<ModelPostConditionInput | null> | null;
@@ -114,7 +110,7 @@ export type UpdatePostInput = {
   id: string;
   title?: string | null;
   content?: string | null;
-  featuredImg?: S3ObjectInput | null;
+  featuredImg?: string | null;
   threadID?: string | null;
   _version?: number | null;
 };
@@ -160,6 +156,7 @@ export type DeleteContactInput = {
 export type ModelThreadFilterInput = {
   id?: ModelIDInput | null;
   subject?: ModelStringInput | null;
+  featuredImg?: ModelStringInput | null;
   and?: Array<ModelThreadFilterInput | null> | null;
   or?: Array<ModelThreadFilterInput | null> | null;
   not?: ModelThreadFilterInput | null;
@@ -169,6 +166,7 @@ export type ModelPostFilterInput = {
   id?: ModelIDInput | null;
   title?: ModelStringInput | null;
   content?: ModelStringInput | null;
+  featuredImg?: ModelStringInput | null;
   threadID?: ModelIDInput | null;
   and?: Array<ModelPostFilterInput | null> | null;
   or?: Array<ModelPostFilterInput | null> | null;
@@ -190,12 +188,7 @@ export type CreateThreadMutation = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -203,6 +196,7 @@ export type CreateThreadMutation = {
       id: string;
       title: string;
       content: string;
+      featuredImg: string | null;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
@@ -224,12 +218,7 @@ export type UpdateThreadMutation = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -237,6 +226,7 @@ export type UpdateThreadMutation = {
       id: string;
       title: string;
       content: string;
+      featuredImg: string | null;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
@@ -258,12 +248,7 @@ export type DeleteThreadMutation = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -271,6 +256,7 @@ export type DeleteThreadMutation = {
       id: string;
       title: string;
       content: string;
+      featuredImg: string | null;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
@@ -293,23 +279,13 @@ export type CreatePostMutation = {
   id: string;
   title: string;
   content: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -333,23 +309,13 @@ export type UpdatePostMutation = {
   id: string;
   title: string;
   content: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -373,23 +339,13 @@ export type DeletePostMutation = {
   id: string;
   title: string;
   content: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -456,12 +412,7 @@ export type SyncThreadsQuery = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -481,12 +432,7 @@ export type GetThreadQuery = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -494,6 +440,7 @@ export type GetThreadQuery = {
       id: string;
       title: string;
       content: string;
+      featuredImg: string | null;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
@@ -517,12 +464,7 @@ export type ListThreadsQuery = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -545,17 +487,13 @@ export type SyncPostsQuery = {
     id: string;
     title: string;
     content: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     threadID: string;
     thread: {
       __typename: "Thread";
       id: string;
       subject: string;
+      featuredImg: string | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -577,23 +515,13 @@ export type GetPostQuery = {
   id: string;
   title: string;
   content: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -619,17 +547,13 @@ export type ListPostsQuery = {
     id: string;
     title: string;
     content: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     threadID: string;
     thread: {
       __typename: "Thread";
       id: string;
       subject: string;
+      featuredImg: string | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -702,12 +626,7 @@ export type OnCreateThreadSubscription = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -715,6 +634,7 @@ export type OnCreateThreadSubscription = {
       id: string;
       title: string;
       content: string;
+      featuredImg: string | null;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
@@ -736,12 +656,7 @@ export type OnUpdateThreadSubscription = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -749,6 +664,7 @@ export type OnUpdateThreadSubscription = {
       id: string;
       title: string;
       content: string;
+      featuredImg: string | null;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
@@ -770,12 +686,7 @@ export type OnDeleteThreadSubscription = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -783,6 +694,7 @@ export type OnDeleteThreadSubscription = {
       id: string;
       title: string;
       content: string;
+      featuredImg: string | null;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
@@ -805,23 +717,13 @@ export type OnCreatePostSubscription = {
   id: string;
   title: string;
   content: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -845,23 +747,13 @@ export type OnUpdatePostSubscription = {
   id: string;
   title: string;
   content: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -885,23 +777,13 @@ export type OnDeletePostSubscription = {
   id: string;
   title: string;
   content: string;
-  featuredImg: {
-    __typename: "S3Object";
-    bucket: string;
-    region: string;
-    key: string;
-  } | null;
+  featuredImg: string | null;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: {
-      __typename: "S3Object";
-      bucket: string;
-      region: string;
-      key: string;
-    } | null;
+    featuredImg: string | null;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -975,12 +857,7 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           posts {
             __typename
             items {
@@ -988,6 +865,7 @@ export class APIService {
               id
               title
               content
+              featuredImg
               threadID
               _version
               _deleted
@@ -1025,12 +903,7 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           posts {
             __typename
             items {
@@ -1038,6 +911,7 @@ export class APIService {
               id
               title
               content
+              featuredImg
               threadID
               _version
               _deleted
@@ -1075,12 +949,7 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           posts {
             __typename
             items {
@@ -1088,6 +957,7 @@ export class APIService {
               id
               title
               content
+              featuredImg
               threadID
               _version
               _deleted
@@ -1126,23 +996,13 @@ export class APIService {
           id
           title
           content
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           threadID
           thread {
             __typename
             id
             subject
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             posts {
               __typename
               nextToken
@@ -1182,23 +1042,13 @@ export class APIService {
           id
           title
           content
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           threadID
           thread {
             __typename
             id
             subject
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             posts {
               __typename
               nextToken
@@ -1238,23 +1088,13 @@ export class APIService {
           id
           title
           content
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           threadID
           thread {
             __typename
             id
             subject
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             posts {
               __typename
               nextToken
@@ -1387,12 +1227,7 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             posts {
               __typename
               nextToken
@@ -1432,12 +1267,7 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           posts {
             __typename
             items {
@@ -1445,6 +1275,7 @@ export class APIService {
               id
               title
               content
+              featuredImg
               threadID
               _version
               _deleted
@@ -1482,12 +1313,7 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             posts {
               __typename
               nextToken
@@ -1532,17 +1358,13 @@ export class APIService {
             id
             title
             content
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             threadID
             thread {
               __typename
               id
               subject
+              featuredImg
               _version
               _deleted
               _lastChangedAt
@@ -1584,23 +1406,13 @@ export class APIService {
           id
           title
           content
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           threadID
           thread {
             __typename
             id
             subject
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             posts {
               __typename
               nextToken
@@ -1640,17 +1452,13 @@ export class APIService {
             id
             title
             content
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             threadID
             thread {
               __typename
               id
               subject
+              featuredImg
               _version
               _deleted
               _lastChangedAt
@@ -1797,12 +1605,7 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           posts {
             __typename
             items {
@@ -1810,6 +1613,7 @@ export class APIService {
               id
               title
               content
+              featuredImg
               threadID
               _version
               _deleted
@@ -1837,12 +1641,7 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           posts {
             __typename
             items {
@@ -1850,6 +1649,7 @@ export class APIService {
               id
               title
               content
+              featuredImg
               threadID
               _version
               _deleted
@@ -1877,12 +1677,7 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           posts {
             __typename
             items {
@@ -1890,6 +1685,7 @@ export class APIService {
               id
               title
               content
+              featuredImg
               threadID
               _version
               _deleted
@@ -1918,23 +1714,13 @@ export class APIService {
           id
           title
           content
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           threadID
           thread {
             __typename
             id
             subject
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             posts {
               __typename
               nextToken
@@ -1964,23 +1750,13 @@ export class APIService {
           id
           title
           content
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           threadID
           thread {
             __typename
             id
             subject
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             posts {
               __typename
               nextToken
@@ -2010,23 +1786,13 @@ export class APIService {
           id
           title
           content
-          featuredImg {
-            __typename
-            bucket
-            region
-            key
-          }
+          featuredImg
           threadID
           thread {
             __typename
             id
             subject
-            featuredImg {
-              __typename
-              bucket
-              region
-              key
-            }
+            featuredImg
             posts {
               __typename
               nextToken

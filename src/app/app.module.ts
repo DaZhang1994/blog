@@ -9,6 +9,7 @@ import { QuillModule } from 'ngx-quill';
 import { MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule, ToastService } from 'ng-uikit-pro-standard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthModule } from './auth/auth.module';
 import { ContactModule } from './contact/contact.module';
 import { ErrorModule } from './error/error.module';
 import { HeaderModule } from './header/header.module';
@@ -40,7 +41,8 @@ import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
     PostModule,
     ContactModule,
     MdbFileUploadModule,
-    ResumeModule
+    ResumeModule,
+    AuthModule
   ],
   providers: [
     MDBSpinningPreloader,

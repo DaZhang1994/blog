@@ -11,24 +11,26 @@
     <mdb-card-body>
 
       <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'" [animation]="'slide'">
-        <mdb-carousel-item *ngFor="let item of postSlides; let i = index">
-          <div class="col-md-4 pb-2" *ngFor="let card of item; let cardIndex = index">
+        <mdb-carousel-item *ngFor="let slider of sliders">
+          <div class="col-md-4 pb-2" *ngFor="let card of slider">
             <mdb-card class="my-1 h-100">
               <div class="view overlay">
-                <a href="#">
-                  <mdb-card-img [src]="card.img" alt="Card image cap"></mdb-card-img>
+                <a [routerLink]="'view/' + card.link">
+                  <mdb-card-img [src]="card.featuredImg" alt="Card image cap"></mdb-card-img>
                   <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
                   </div>
                 </a>
               </div>
               <mdb-card-body>
                 <mdb-card-title>
-                  <h4>{{ card.title }}</h4>
+                  <a [routerLink]="'view/' + card.link">
+                    <h4>{{ card.title }}</h4>
+                  </a>
                 </mdb-card-title>
-                <p>{{ card.description }}</p>
+                <p>{{ card.abstract }}</p>
               </mdb-card-body>
               <mdb-card-footer>
-                <a href="#" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Read More</a>
+                <a [routerLink]="'view/' + card.link" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Read More</a>
               </mdb-card-footer>
             </mdb-card>
           </div>
@@ -56,7 +58,7 @@
                 alt="img"
               />
               <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
-                <p class="white-text">Strong overlay</p>
+                <h2 class="white-text">IT</h2>
               </div>
             </a>
           </div>
@@ -73,7 +75,7 @@
                 alt="img"
               />
               <div class="mask flex-center rgba-grey-strong">
-                <p class="white-text">Strong overlay</p>
+                <h2 class="white-text">Travel</h2>
               </div>
             </a>
           </div>
@@ -90,7 +92,7 @@
                 alt="img"
               />
               <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
-                <p class="white-text">Strong overlay</p>
+                <h2 class="white-text">Game</h2>
               </div>
             </a>
           </div>
@@ -110,7 +112,7 @@
                 alt="img"
               />
               <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
-                <p class="white-text">Strong overlay</p>
+                <h2 class="white-text">Food</h2>
               </div>
             </a>
           </div>
@@ -127,7 +129,7 @@
                 alt="img"
               />
               <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
-                <p class="white-text">Strong overlay</p>
+                <h2 class="white-text">Finance</h2>
               </div>
             </a>
           </div>
@@ -144,7 +146,7 @@
                 alt="img"
               />
               <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
-                <p class="white-text">Strong overlay</p>
+                <h2 class="white-text">Health</h2>
               </div>
             </a>
           </div>
@@ -165,7 +167,7 @@
                 alt="img"
               />
               <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
-                <p class="white-text">Strong overlay</p>
+                <h2 class="white-text">Movie</h2>
               </div>
             </a>
           </div>
@@ -182,7 +184,7 @@
                 alt="img"
               />
               <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
-                <p class="white-text">Strong overlay</p>
+                <h2 class="white-text">Music</h2>
               </div>
             </a>
           </div>
@@ -199,7 +201,7 @@
                 alt="img"
               />
               <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
-                <p class="white-text">Strong overlay</p>
+                <h2 class="white-text">Life</h2>
               </div>
             </a>
           </div>

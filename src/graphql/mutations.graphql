@@ -6,16 +6,13 @@ mutation CreateThread(
   createThread(input: $input, condition: $condition) {
     id
     subject
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     posts {
       items {
         id
         title
         content
+        featuredImg
         threadID
         _version
         _deleted
@@ -40,16 +37,13 @@ mutation UpdateThread(
   updateThread(input: $input, condition: $condition) {
     id
     subject
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     posts {
       items {
         id
         title
         content
+        featuredImg
         threadID
         _version
         _deleted
@@ -74,16 +68,13 @@ mutation DeleteThread(
   deleteThread(input: $input, condition: $condition) {
     id
     subject
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     posts {
       items {
         id
         title
         content
+        featuredImg
         threadID
         _version
         _deleted
@@ -109,20 +100,12 @@ mutation CreatePost(
     id
     title
     content
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     threadID
     thread {
       id
       subject
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       posts {
         nextToken
         startedAt
@@ -148,20 +131,12 @@ mutation UpdatePost(
     id
     title
     content
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     threadID
     thread {
       id
       subject
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       posts {
         nextToken
         startedAt
@@ -187,20 +162,12 @@ mutation DeletePost(
     id
     title
     content
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     threadID
     thread {
       id
       subject
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       posts {
         nextToken
         startedAt

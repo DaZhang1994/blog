@@ -3,16 +3,13 @@ subscription OnCreateThread {
   onCreateThread {
     id
     subject
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     posts {
       items {
         id
         title
         content
+        featuredImg
         threadID
         _version
         _deleted
@@ -34,16 +31,13 @@ subscription OnUpdateThread {
   onUpdateThread {
     id
     subject
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     posts {
       items {
         id
         title
         content
+        featuredImg
         threadID
         _version
         _deleted
@@ -65,16 +59,13 @@ subscription OnDeleteThread {
   onDeleteThread {
     id
     subject
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     posts {
       items {
         id
         title
         content
+        featuredImg
         threadID
         _version
         _deleted
@@ -97,20 +88,12 @@ subscription OnCreatePost {
     id
     title
     content
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     threadID
     thread {
       id
       subject
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       posts {
         nextToken
         startedAt
@@ -133,20 +116,12 @@ subscription OnUpdatePost {
     id
     title
     content
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     threadID
     thread {
       id
       subject
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       posts {
         nextToken
         startedAt
@@ -169,20 +144,12 @@ subscription OnDeletePost {
     id
     title
     content
-    featuredImg {
-      bucket
-      region
-      key
-    }
+    featuredImg
     threadID
     thread {
       id
       subject
-      featuredImg {
-        bucket
-        region
-        key
-      }
+      featuredImg
       posts {
         nextToken
         startedAt

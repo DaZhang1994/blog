@@ -3,22 +3,30 @@
 
   <div class="header-placeholder"></div>
 
-  <form [formGroup]="editPostForm" (ngSubmit)="onSubmit(editPostForm.value)">
-    <mdb-card id="compose-post-content">
-      <mdb-card-header class="rgba-white-slight mb-0 pb-0">
-        <mdb-file-upload #postFeatureImg ngDefaultControl id="postFeatureImg" formControlName="postFeatureImg" (fileRemoved)="onFileRemove()" (fileAdded)="onFileAdd($event)"></mdb-file-upload>
+  <form [formGroup]="composePostForm" (ngSubmit)="onSubmit(composePostForm.value)">
+    <mdb-card>
+      <mdb-card-header class="blue white-text text-center py-4">
+        <h1><strong>Compose Post</strong></h1>
+      </mdb-card-header>
+
+      <mdb-card-body>
+        <mdb-file-upload #postFeaturedImg ngDefaultControl id="postFeaturedImg" formControlName="postFeaturedImg" (fileRemoved)="onFileRemove()" (fileAdded)="onFileAdd($event)"></mdb-file-upload>
         <div class="md-form">
+
           <input mdbInput mdbValidate type="text" id="postTitle" class="form-control text-center" formControlName="postTitle">
           <label for="postTitle">Post Title</label>
           <mdb-error *ngIf="postTitle.invalid && (postTitle.dirty || postTitle.touched)">Please Enter Post Title</mdb-error>
           <mdb-success *ngIf="postTitle.valid && (postTitle.dirty || postTitle.touched)"></mdb-success>
-        </div>
-      </mdb-card-header>
 
-      <mdb-card-body class="p-0">
+          <select mdbInput mdbValidate class="browser-default custom-select mt-3" formControlName="postThread">
+            <option selected [value]=null> * Please Select the thread your post belongs to ...</option>
+            <option *ngFor="let thread of threads" [value]="thread.id">{{ thread.subject }}</option>
+          </select>
+
+        </div>
         <quill-editor formControlName="postContent" ></quill-editor>
         <button id="cancelBtn" type="button" mdbBtn class="m-0 w-50 flex-1" color="grey" mdbWavesEffect>Cancel</button>
-        <button id="submitBtn" [disabled]="!postTitle.valid" type="submit" mdbBtn class="m-0 w-50 flex-1" color="primary" mdbWavesEffect>Submit</button>
+        <button id="submitBtn" [disabled]="!(postTitle.valid && postContent.valid && postThread.valid)" type="submit" mdbBtn class="m-0 w-50 flex-1" color="primary" mdbWavesEffect>Submit</button>
       </mdb-card-body>
     </mdb-card>
   </form>

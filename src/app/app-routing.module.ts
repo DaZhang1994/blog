@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthComponent } from './auth/auth.component';
 import { ContactComponent } from './contact/contact.component';
 import { PageNotFound } from './error/page_not_found/page_not_found.component';
 import { HeaderComponent } from './header/header.component';
 import { LandingComponent } from './landing/landing.component';
+import { PostEditComponent } from './post/post-edit/post-edit.component';
 import { ResumeComponent } from './resume/resume.component';
 import { PostComposeComponent } from './post/post-compose/post-compose.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
@@ -36,8 +38,13 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'compose/:id',
+        path: 'compose',
         component: PostComposeComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: 'edit/:id',
+        component: PostEditComponent,
         pathMatch: 'full'
       },
       {
@@ -45,6 +52,21 @@ const routes: Routes = [
         component: PageNotFound,
       },
     ],
+  },
+  {
+    path: 'auth',
+    component: HeaderComponent,
+    children: [
+      {
+        path: '',
+        component: AuthComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: '**',
+        component: PageNotFound,
+      },
+    ]
   },
   {
     path: 'resume',

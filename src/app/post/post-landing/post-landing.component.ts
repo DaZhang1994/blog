@@ -1,4 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from '../../../models';
+import { APIService } from '../../API.service';
+import { Storage } from 'aws-amplify'
+
+class Card {
+  title: string;
+  abstract: string;
+  link: string;
+  featuredImg?: string | Object;
+}
+
+const NEWEST_LIMIT = 9;
+const SLIDER_SIZE = 3;
 
 @Component({
   selector: 'app-thread-landing',
@@ -7,63 +20,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostLandingComponent implements OnInit {
 
-  postCards = [
-    {
-      title: 'Post 1',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'assets/img/post1.jpg'
-    },
-    {
-      title: 'Post 2',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'assets/img/post2.jpg'
-    },
-    {
-      title: 'Post 3',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'assets/img/post3.jpg'
-    },
-    {
-      title: 'Post 4',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'assets/img/post4.jpg'
-    },
-    {
-      title: 'Post 5',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'assets/img/post5.jpg'
-    },
-    {
-      title: 'Post 6',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'assets/img/post6.jpg'
-    },
-    {
-      title: 'Post 7',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'assets/img/post7.jpg'
-    },
-    {
-      title: 'Post 8',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'assets/img/post8.jpg'
-    },
-    {
-      title: 'Post 9',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'assets/img/post9.jpg'
-    }];
+  newestPosts: Post[];
+  cards: Card[] = [];
+  sliders: Card[][] = [[]];
+  domParser: DOMParser = new DOMParser();
 
-  postSlides: any = [[]];
+  constructor(private readonly apiService: APIService) { }
 
   chunk(arr: any, chunkSize:any) {
     let R = [];
@@ -73,10 +35,19 @@ export class PostLandingComponent implements OnInit {
     return R;
   }
 
-  constructor() { }
+  async ngOnInit() {
+    this.newestPosts = (await this.apiService.ListPosts(undefined, NEWEST_LIMIT)).items;
 
-  ngOnInit(): void {
-    this.postSlides = this.chunk(this.postCards, 3);
+    this.newestPosts.map((post: Post) => {
+      const card = new Card();
+      this.cards.push(card);
+      Storage.get(post.featuredImg).then((featuredImg: string) => card.featuredImg = featuredImg);
+      card.title = post.title;
+      card.link = post.id;
+      card.abstract = this.domParser.parseFromString(post.content, 'text/html')?.querySelector('p')?.innerText?.substring(0, 400) + '...';
+    })
+
+    this.sliders = this.chunk(this.cards, SLIDER_SIZE);
   }
 
 }
