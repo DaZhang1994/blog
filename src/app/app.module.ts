@@ -17,6 +17,7 @@ import { LandingModule } from './landing/landing.module';
 import { ResumeModule } from './resume/resume.module';
 import { PostModule } from './post/post.module';
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
+import { ThreadModule } from './thread/thread.module';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
     ContactModule,
     MdbFileUploadModule,
     ResumeModule,
-    AuthModule
+    AuthModule,
+    ThreadModule
   ],
   providers: [
     MDBSpinningPreloader,

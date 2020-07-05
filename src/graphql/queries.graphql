@@ -15,6 +15,8 @@ query SyncThreads(
       id
       subject
       featuredImg
+      createdAt
+      updatedAt
       posts {
         nextToken
         startedAt
@@ -22,8 +24,6 @@ query SyncThreads(
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     nextToken
     startedAt
@@ -34,18 +34,20 @@ query GetThread($id: ID!) {
     id
     subject
     featuredImg
+    createdAt
+    updatedAt
     posts {
       items {
         id
         title
         content
         featuredImg
+        createdAt
+        updatedAt
         threadID
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
       }
       nextToken
       startedAt
@@ -53,8 +55,6 @@ query GetThread($id: ID!) {
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 query ListThreads(
@@ -67,6 +67,8 @@ query ListThreads(
       id
       subject
       featuredImg
+      createdAt
+      updatedAt
       posts {
         nextToken
         startedAt
@@ -74,8 +76,6 @@ query ListThreads(
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     nextToken
     startedAt
@@ -98,22 +98,22 @@ query SyncPosts(
       title
       content
       featuredImg
+      createdAt
+      updatedAt
       threadID
       thread {
         id
         subject
         featuredImg
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
       }
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     nextToken
     startedAt
@@ -125,11 +125,15 @@ query GetPost($id: ID!) {
     title
     content
     featuredImg
+    createdAt
+    updatedAt
     threadID
     thread {
       id
       subject
       featuredImg
+      createdAt
+      updatedAt
       posts {
         nextToken
         startedAt
@@ -137,14 +141,10 @@ query GetPost($id: ID!) {
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 query ListPosts(
@@ -158,22 +158,22 @@ query ListPosts(
       title
       content
       featuredImg
+      createdAt
+      updatedAt
       threadID
       thread {
         id
         subject
         featuredImg
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
       }
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     nextToken
     startedAt
@@ -197,11 +197,11 @@ query SyncContacts(
       email
       subject
       content
+      createdAt
+      updatedAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     nextToken
     startedAt
@@ -214,11 +214,11 @@ query GetContact($id: ID!) {
     email
     subject
     content
+    createdAt
+    updatedAt
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 query ListContacts(
@@ -233,13 +233,151 @@ query ListContacts(
       email
       subject
       content
+      createdAt
+      updatedAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     nextToken
     startedAt
+  }
+}
+query ListPostsByThread(
+  $threadID: ID
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPostsByThread(
+    threadID: $threadID
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      title
+      content
+      featuredImg
+      createdAt
+      updatedAt
+      threadID
+      thread {
+        id
+        subject
+        featuredImg
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SearchThreads(
+  $filter: SearchableThreadFilterInput
+  $sort: SearchableThreadSortInput
+  $limit: Int
+  $nextToken: String
+) {
+  searchThreads(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      subject
+      featuredImg
+      createdAt
+      updatedAt
+      posts {
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    total
+  }
+}
+query SearchPosts(
+  $filter: SearchablePostFilterInput
+  $sort: SearchablePostSortInput
+  $limit: Int
+  $nextToken: String
+) {
+  searchPosts(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      title
+      content
+      featuredImg
+      createdAt
+      updatedAt
+      threadID
+      thread {
+        id
+        subject
+        featuredImg
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    total
+  }
+}
+query SearchContacts(
+  $filter: SearchableContactFilterInput
+  $sort: SearchableContactSortInput
+  $limit: Int
+  $nextToken: String
+) {
+  searchContacts(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      email
+      subject
+      content
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    total
   }
 }

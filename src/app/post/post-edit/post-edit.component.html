@@ -1,12 +1,12 @@
 <!--Thread Section Wrapper-->
-<section id="edit-post" class="container-fluid">
+<section id="post-edit" class="container-fluid">
 
   <div class="header-placeholder"></div>
 
   <form [formGroup]="editPostForm" (ngSubmit)="onSubmit(editPostForm.value)">
     <mdb-card>
       <mdb-card-header class="blue white-text text-center py-4">
-        <h1><strong>Compose Post</strong></h1>
+        <h1><strong>Edit Post</strong></h1>
       </mdb-card-header>
 
       <mdb-card-body>
@@ -24,7 +24,7 @@
 
         </div>
         <quill-editor formControlName="postContent"></quill-editor>
-        <button id="cancelBtn" type="button" mdbBtn class="m-0 w-50 flex-1" color="grey" mdbWavesEffect>Cancel</button>
+        <button id="deleteBtn" type="button" mdbBtn class="m-0 w-50 flex-1" color="red" mdbWavesEffect (click)="onDelete()">Delete</button>
         <button id="submitBtn" [disabled]="!(postTitle.valid && postContent.valid && postThread.valid)" type="submit" mdbBtn class="m-0 w-50 flex-1" color="primary" mdbWavesEffect>Submit</button>
       </mdb-card-body>
     </mdb-card>

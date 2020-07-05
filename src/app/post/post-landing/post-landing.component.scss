@@ -1,11 +1,11 @@
-#thread-landing {
+#post-landing {
   background: url('../../../assets/img/thread_bg.jpg') no-repeat fixed center;
   background-size: cover;
 }
 
 
 /* Post Carousel */
-#thread-landing-content .carousel-item {
+.carousel-item {
   &.active, &.carousel-item-right, &.carousel-item-next {
     display: flex !important;
     flex-wrap: wrap

@@ -1,20 +1,25 @@
 /* tslint:disable */
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
-import { Injectable } from '@angular/core';
-import API, { graphqlOperation } from '@aws-amplify/api';
-import { Observable } from 'zen-observable-ts';
+import { Injectable } from "@angular/core";
+import API, { graphqlOperation } from "@aws-amplify/api";
+import { GraphQLResult } from "@aws-amplify/api/lib/types";
+import { Observable } from "zen-observable-ts";
 
 export type CreateThreadInput = {
   id?: string | null;
   subject: string;
   featuredImg?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   _version?: number | null;
 };
 
 export type ModelThreadConditionInput = {
   subject?: ModelStringInput | null;
   featuredImg?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
   and?: Array<ModelThreadConditionInput | null> | null;
   or?: Array<ModelThreadConditionInput | null> | null;
   not?: ModelThreadConditionInput | null;
@@ -63,6 +68,8 @@ export type UpdateThreadInput = {
   id: string;
   subject?: string | null;
   featuredImg?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   _version?: number | null;
 };
 
@@ -76,6 +83,8 @@ export type CreatePostInput = {
   title: string;
   content: string;
   featuredImg?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   threadID: string;
   _version?: number | null;
 };
@@ -84,6 +93,8 @@ export type ModelPostConditionInput = {
   title?: ModelStringInput | null;
   content?: ModelStringInput | null;
   featuredImg?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
   threadID?: ModelIDInput | null;
   and?: Array<ModelPostConditionInput | null> | null;
   or?: Array<ModelPostConditionInput | null> | null;
@@ -111,6 +122,8 @@ export type UpdatePostInput = {
   title?: string | null;
   content?: string | null;
   featuredImg?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   threadID?: string | null;
   _version?: number | null;
 };
@@ -126,6 +139,8 @@ export type CreateContactInput = {
   email: string;
   subject: string;
   content: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   _version?: number | null;
 };
 
@@ -134,6 +149,8 @@ export type ModelContactConditionInput = {
   email?: ModelStringInput | null;
   subject?: ModelStringInput | null;
   content?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
   and?: Array<ModelContactConditionInput | null> | null;
   or?: Array<ModelContactConditionInput | null> | null;
   not?: ModelContactConditionInput | null;
@@ -145,6 +162,8 @@ export type UpdateContactInput = {
   email?: string | null;
   subject?: string | null;
   content?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   _version?: number | null;
 };
 
@@ -157,6 +176,8 @@ export type ModelThreadFilterInput = {
   id?: ModelIDInput | null;
   subject?: ModelStringInput | null;
   featuredImg?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
   and?: Array<ModelThreadFilterInput | null> | null;
   or?: Array<ModelThreadFilterInput | null> | null;
   not?: ModelThreadFilterInput | null;
@@ -167,6 +188,8 @@ export type ModelPostFilterInput = {
   title?: ModelStringInput | null;
   content?: ModelStringInput | null;
   featuredImg?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
   threadID?: ModelIDInput | null;
   and?: Array<ModelPostFilterInput | null> | null;
   or?: Array<ModelPostFilterInput | null> | null;
@@ -179,16 +202,152 @@ export type ModelContactFilterInput = {
   email?: ModelStringInput | null;
   subject?: ModelStringInput | null;
   content?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
   and?: Array<ModelContactFilterInput | null> | null;
   or?: Array<ModelContactFilterInput | null> | null;
   not?: ModelContactFilterInput | null;
 };
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC"
+}
+
+export type SearchableThreadFilterInput = {
+  id?: SearchableIDFilterInput | null;
+  subject?: SearchableStringFilterInput | null;
+  featuredImg?: SearchableStringFilterInput | null;
+  createdAt?: SearchableStringFilterInput | null;
+  updatedAt?: SearchableStringFilterInput | null;
+  and?: Array<SearchableThreadFilterInput | null> | null;
+  or?: Array<SearchableThreadFilterInput | null> | null;
+  not?: SearchableThreadFilterInput | null;
+};
+
+export type SearchableIDFilterInput = {
+  ne?: string | null;
+  gt?: string | null;
+  lt?: string | null;
+  gte?: string | null;
+  lte?: string | null;
+  eq?: string | null;
+  match?: string | null;
+  matchPhrase?: string | null;
+  matchPhrasePrefix?: string | null;
+  multiMatch?: string | null;
+  exists?: boolean | null;
+  wildcard?: string | null;
+  regexp?: string | null;
+};
+
+export type SearchableStringFilterInput = {
+  ne?: string | null;
+  gt?: string | null;
+  lt?: string | null;
+  gte?: string | null;
+  lte?: string | null;
+  eq?: string | null;
+  match?: string | null;
+  matchPhrase?: string | null;
+  matchPhrasePrefix?: string | null;
+  multiMatch?: string | null;
+  exists?: boolean | null;
+  wildcard?: string | null;
+  regexp?: string | null;
+};
+
+export type SearchableThreadSortInput = {
+  field?: SearchableThreadSortableFields | null;
+  direction?: SearchableSortDirection | null;
+};
+
+export enum SearchableThreadSortableFields {
+  id = "id",
+  subject = "subject",
+  featuredImg = "featuredImg",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt"
+}
+
+export enum SearchableSortDirection {
+  asc = "asc",
+  desc = "desc"
+}
+
+export type SearchablePostFilterInput = {
+  id?: SearchableIDFilterInput | null;
+  title?: SearchableStringFilterInput | null;
+  content?: SearchableStringFilterInput | null;
+  featuredImg?: SearchableStringFilterInput | null;
+  createdAt?: SearchableStringFilterInput | null;
+  updatedAt?: SearchableStringFilterInput | null;
+  threadID?: SearchableIDFilterInput | null;
+  and?: Array<SearchablePostFilterInput | null> | null;
+  or?: Array<SearchablePostFilterInput | null> | null;
+  not?: SearchablePostFilterInput | null;
+};
+
+export type SearchablePostSortInput = {
+  field?: SearchablePostSortableFields | null;
+  direction?: SearchableSortDirection | null;
+};
+
+export enum SearchablePostSortableFields {
+  id = "id",
+  title = "title",
+  content = "content",
+  featuredImg = "featuredImg",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+  threadID = "threadID"
+}
+
+export type SearchableContactFilterInput = {
+  id?: SearchableIDFilterInput | null;
+  name?: SearchableStringFilterInput | null;
+  email?: SearchableStringFilterInput | null;
+  subject?: SearchableStringFilterInput | null;
+  content?: SearchableStringFilterInput | null;
+  createdAt?: SearchableStringFilterInput | null;
+  updatedAt?: SearchableStringFilterInput | null;
+  and?: Array<SearchableContactFilterInput | null> | null;
+  or?: Array<SearchableContactFilterInput | null> | null;
+  not?: SearchableContactFilterInput | null;
+};
+
+export type SearchableContactSortInput = {
+  field?: SearchableContactSortableFields | null;
+  direction?: SearchableSortDirection | null;
+};
+
+export enum SearchableContactSortableFields {
+  id = "id",
+  name = "name",
+  email = "email",
+  subject = "subject",
+  content = "content",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt"
+}
 
 export type CreateThreadMutation = {
   __typename: "Thread";
   id: string;
   subject: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -197,12 +356,12 @@ export type CreateThreadMutation = {
       title: string;
       content: string;
       featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
-      createdAt: string;
-      updatedAt: string;
     } | null> | null;
     nextToken: string | null;
     startedAt: number | null;
@@ -210,8 +369,6 @@ export type CreateThreadMutation = {
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type UpdateThreadMutation = {
@@ -219,6 +376,8 @@ export type UpdateThreadMutation = {
   id: string;
   subject: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -227,12 +386,12 @@ export type UpdateThreadMutation = {
       title: string;
       content: string;
       featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
-      createdAt: string;
-      updatedAt: string;
     } | null> | null;
     nextToken: string | null;
     startedAt: number | null;
@@ -240,8 +399,6 @@ export type UpdateThreadMutation = {
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type DeleteThreadMutation = {
@@ -249,6 +406,8 @@ export type DeleteThreadMutation = {
   id: string;
   subject: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -257,12 +416,12 @@ export type DeleteThreadMutation = {
       title: string;
       content: string;
       featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
-      createdAt: string;
-      updatedAt: string;
     } | null> | null;
     nextToken: string | null;
     startedAt: number | null;
@@ -270,8 +429,6 @@ export type DeleteThreadMutation = {
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type CreatePostMutation = {
@@ -280,12 +437,16 @@ export type CreatePostMutation = {
   title: string;
   content: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -294,14 +455,10 @@ export type CreatePostMutation = {
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type UpdatePostMutation = {
@@ -310,12 +467,16 @@ export type UpdatePostMutation = {
   title: string;
   content: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -324,14 +485,10 @@ export type UpdatePostMutation = {
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type DeletePostMutation = {
@@ -340,12 +497,16 @@ export type DeletePostMutation = {
   title: string;
   content: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -354,14 +515,10 @@ export type DeletePostMutation = {
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type CreateContactMutation = {
@@ -371,11 +528,11 @@ export type CreateContactMutation = {
   email: string;
   subject: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type UpdateContactMutation = {
@@ -385,11 +542,11 @@ export type UpdateContactMutation = {
   email: string;
   subject: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type DeleteContactMutation = {
@@ -399,11 +556,11 @@ export type DeleteContactMutation = {
   email: string;
   subject: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type SyncThreadsQuery = {
@@ -413,6 +570,8 @@ export type SyncThreadsQuery = {
     id: string;
     subject: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -421,8 +580,6 @@ export type SyncThreadsQuery = {
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null> | null;
   nextToken: string | null;
   startedAt: number | null;
@@ -433,6 +590,8 @@ export type GetThreadQuery = {
   id: string;
   subject: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -441,12 +600,12 @@ export type GetThreadQuery = {
       title: string;
       content: string;
       featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
-      createdAt: string;
-      updatedAt: string;
     } | null> | null;
     nextToken: string | null;
     startedAt: number | null;
@@ -454,8 +613,6 @@ export type GetThreadQuery = {
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type ListThreadsQuery = {
@@ -465,6 +622,8 @@ export type ListThreadsQuery = {
     id: string;
     subject: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -473,8 +632,6 @@ export type ListThreadsQuery = {
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null> | null;
   nextToken: string | null;
   startedAt: number | null;
@@ -488,23 +645,23 @@ export type SyncPostsQuery = {
     title: string;
     content: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     threadID: string;
     thread: {
       __typename: "Thread";
       id: string;
       subject: string;
       featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
-      createdAt: string;
-      updatedAt: string;
     } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null> | null;
   nextToken: string | null;
   startedAt: number | null;
@@ -516,12 +673,16 @@ export type GetPostQuery = {
   title: string;
   content: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -530,14 +691,10 @@ export type GetPostQuery = {
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type ListPostsQuery = {
@@ -548,23 +705,23 @@ export type ListPostsQuery = {
     title: string;
     content: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     threadID: string;
     thread: {
       __typename: "Thread";
       id: string;
       subject: string;
       featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
-      createdAt: string;
-      updatedAt: string;
     } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null> | null;
   nextToken: string | null;
   startedAt: number | null;
@@ -579,11 +736,11 @@ export type SyncContactsQuery = {
     email: string;
     subject: string;
     content: string;
+    createdAt: string;
+    updatedAt: string;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null> | null;
   nextToken: string | null;
   startedAt: number | null;
@@ -596,11 +753,11 @@ export type GetContactQuery = {
   email: string;
   subject: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type ListContactsQuery = {
@@ -612,14 +769,115 @@ export type ListContactsQuery = {
     email: string;
     subject: string;
     content: string;
+    createdAt: string;
+    updatedAt: string;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null> | null;
   nextToken: string | null;
   startedAt: number | null;
+};
+
+export type ListPostsByThreadQuery = {
+  __typename: "ModelPostConnection";
+  items: Array<{
+    __typename: "Post";
+    id: string;
+    title: string;
+    content: string;
+    featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
+    threadID: string;
+    thread: {
+      __typename: "Thread";
+      id: string;
+      subject: string;
+      featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SearchThreadsQuery = {
+  __typename: "SearchableThreadConnection";
+  items: Array<{
+    __typename: "Thread";
+    id: string;
+    subject: string;
+    featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  total: number | null;
+};
+
+export type SearchPostsQuery = {
+  __typename: "SearchablePostConnection";
+  items: Array<{
+    __typename: "Post";
+    id: string;
+    title: string;
+    content: string;
+    featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
+    threadID: string;
+    thread: {
+      __typename: "Thread";
+      id: string;
+      subject: string;
+      featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  total: number | null;
+};
+
+export type SearchContactsQuery = {
+  __typename: "SearchableContactConnection";
+  items: Array<{
+    __typename: "Contact";
+    id: string;
+    name: string;
+    email: string;
+    subject: string;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  total: number | null;
 };
 
 export type OnCreateThreadSubscription = {
@@ -627,6 +885,8 @@ export type OnCreateThreadSubscription = {
   id: string;
   subject: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -635,12 +895,12 @@ export type OnCreateThreadSubscription = {
       title: string;
       content: string;
       featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
-      createdAt: string;
-      updatedAt: string;
     } | null> | null;
     nextToken: string | null;
     startedAt: number | null;
@@ -648,8 +908,6 @@ export type OnCreateThreadSubscription = {
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type OnUpdateThreadSubscription = {
@@ -657,6 +915,8 @@ export type OnUpdateThreadSubscription = {
   id: string;
   subject: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -665,12 +925,12 @@ export type OnUpdateThreadSubscription = {
       title: string;
       content: string;
       featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
-      createdAt: string;
-      updatedAt: string;
     } | null> | null;
     nextToken: string | null;
     startedAt: number | null;
@@ -678,8 +938,6 @@ export type OnUpdateThreadSubscription = {
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type OnDeleteThreadSubscription = {
@@ -687,6 +945,8 @@ export type OnDeleteThreadSubscription = {
   id: string;
   subject: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -695,12 +955,12 @@ export type OnDeleteThreadSubscription = {
       title: string;
       content: string;
       featuredImg: string | null;
+      createdAt: string;
+      updatedAt: string;
       threadID: string;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
-      createdAt: string;
-      updatedAt: string;
     } | null> | null;
     nextToken: string | null;
     startedAt: number | null;
@@ -708,8 +968,6 @@ export type OnDeleteThreadSubscription = {
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type OnCreatePostSubscription = {
@@ -718,12 +976,16 @@ export type OnCreatePostSubscription = {
   title: string;
   content: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -732,14 +994,10 @@ export type OnCreatePostSubscription = {
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type OnUpdatePostSubscription = {
@@ -748,12 +1006,16 @@ export type OnUpdatePostSubscription = {
   title: string;
   content: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -762,14 +1024,10 @@ export type OnUpdatePostSubscription = {
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type OnDeletePostSubscription = {
@@ -778,12 +1036,16 @@ export type OnDeletePostSubscription = {
   title: string;
   content: string;
   featuredImg: string | null;
+  createdAt: string;
+  updatedAt: string;
   threadID: string;
   thread: {
     __typename: "Thread";
     id: string;
     subject: string;
     featuredImg: string | null;
+    createdAt: string;
+    updatedAt: string;
     posts: {
       __typename: "ModelPostConnection";
       nextToken: string | null;
@@ -792,14 +1054,10 @@ export type OnDeletePostSubscription = {
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
-    createdAt: string;
-    updatedAt: string;
   } | null;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type OnCreateContactSubscription = {
@@ -809,11 +1067,11 @@ export type OnCreateContactSubscription = {
   email: string;
   subject: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type OnUpdateContactSubscription = {
@@ -823,11 +1081,11 @@ export type OnUpdateContactSubscription = {
   email: string;
   subject: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type OnDeleteContactSubscription = {
@@ -837,11 +1095,11 @@ export type OnDeleteContactSubscription = {
   email: string;
   subject: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
   _version: number;
   _deleted: boolean | null;
   _lastChangedAt: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 @Injectable({
@@ -858,6 +1116,8 @@ export class APIService {
           id
           subject
           featuredImg
+          createdAt
+          updatedAt
           posts {
             __typename
             items {
@@ -866,12 +1126,12 @@ export class APIService {
               title
               content
               featuredImg
+              createdAt
+              updatedAt
               threadID
               _version
               _deleted
               _lastChangedAt
-              createdAt
-              updatedAt
             }
             nextToken
             startedAt
@@ -879,8 +1139,6 @@ export class APIService {
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -904,6 +1162,8 @@ export class APIService {
           id
           subject
           featuredImg
+          createdAt
+          updatedAt
           posts {
             __typename
             items {
@@ -912,12 +1172,12 @@ export class APIService {
               title
               content
               featuredImg
+              createdAt
+              updatedAt
               threadID
               _version
               _deleted
               _lastChangedAt
-              createdAt
-              updatedAt
             }
             nextToken
             startedAt
@@ -925,8 +1185,6 @@ export class APIService {
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -950,6 +1208,8 @@ export class APIService {
           id
           subject
           featuredImg
+          createdAt
+          updatedAt
           posts {
             __typename
             items {
@@ -958,12 +1218,12 @@ export class APIService {
               title
               content
               featuredImg
+              createdAt
+              updatedAt
               threadID
               _version
               _deleted
               _lastChangedAt
-              createdAt
-              updatedAt
             }
             nextToken
             startedAt
@@ -971,8 +1231,6 @@ export class APIService {
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -997,12 +1255,16 @@ export class APIService {
           title
           content
           featuredImg
+          createdAt
+          updatedAt
           threadID
           thread {
             __typename
             id
             subject
             featuredImg
+            createdAt
+            updatedAt
             posts {
               __typename
               nextToken
@@ -1011,14 +1273,10 @@ export class APIService {
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1043,12 +1301,16 @@ export class APIService {
           title
           content
           featuredImg
+          createdAt
+          updatedAt
           threadID
           thread {
             __typename
             id
             subject
             featuredImg
+            createdAt
+            updatedAt
             posts {
               __typename
               nextToken
@@ -1057,14 +1319,10 @@ export class APIService {
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1089,12 +1347,16 @@ export class APIService {
           title
           content
           featuredImg
+          createdAt
+          updatedAt
           threadID
           thread {
             __typename
             id
             subject
             featuredImg
+            createdAt
+            updatedAt
             posts {
               __typename
               nextToken
@@ -1103,14 +1365,10 @@ export class APIService {
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1136,11 +1394,11 @@ export class APIService {
           email
           subject
           content
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1166,11 +1424,11 @@ export class APIService {
           email
           subject
           content
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1196,11 +1454,11 @@ export class APIService {
           email
           subject
           content
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1228,6 +1486,8 @@ export class APIService {
             id
             subject
             featuredImg
+            createdAt
+            updatedAt
             posts {
               __typename
               nextToken
@@ -1236,8 +1496,6 @@ export class APIService {
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           nextToken
           startedAt
@@ -1268,6 +1526,8 @@ export class APIService {
           id
           subject
           featuredImg
+          createdAt
+          updatedAt
           posts {
             __typename
             items {
@@ -1276,12 +1536,12 @@ export class APIService {
               title
               content
               featuredImg
+              createdAt
+              updatedAt
               threadID
               _version
               _deleted
               _lastChangedAt
-              createdAt
-              updatedAt
             }
             nextToken
             startedAt
@@ -1289,8 +1549,6 @@ export class APIService {
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1314,6 +1572,8 @@ export class APIService {
             id
             subject
             featuredImg
+            createdAt
+            updatedAt
             posts {
               __typename
               nextToken
@@ -1322,8 +1582,6 @@ export class APIService {
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           nextToken
           startedAt
@@ -1359,23 +1617,23 @@ export class APIService {
             title
             content
             featuredImg
+            createdAt
+            updatedAt
             threadID
             thread {
               __typename
               id
               subject
               featuredImg
+              createdAt
+              updatedAt
               _version
               _deleted
               _lastChangedAt
-              createdAt
-              updatedAt
             }
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           nextToken
           startedAt
@@ -1407,12 +1665,16 @@ export class APIService {
           title
           content
           featuredImg
+          createdAt
+          updatedAt
           threadID
           thread {
             __typename
             id
             subject
             featuredImg
+            createdAt
+            updatedAt
             posts {
               __typename
               nextToken
@@ -1421,14 +1683,10 @@ export class APIService {
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1453,23 +1711,23 @@ export class APIService {
             title
             content
             featuredImg
+            createdAt
+            updatedAt
             threadID
             thread {
               __typename
               id
               subject
               featuredImg
+              createdAt
+              updatedAt
               _version
               _deleted
               _lastChangedAt
-              createdAt
-              updatedAt
             }
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           nextToken
           startedAt
@@ -1506,11 +1764,11 @@ export class APIService {
             email
             subject
             content
+            createdAt
+            updatedAt
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           nextToken
           startedAt
@@ -1543,11 +1801,11 @@ export class APIService {
           email
           subject
           content
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1573,11 +1831,11 @@ export class APIService {
             email
             subject
             content
+            createdAt
+            updatedAt
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           nextToken
           startedAt
@@ -1598,6 +1856,215 @@ export class APIService {
     )) as any;
     return <ListContactsQuery>response.data.listContacts;
   }
+  async ListPostsByThread(
+    threadID?: string,
+    createdAt?: ModelStringKeyConditionInput,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelPostFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListPostsByThreadQuery> {
+    const statement = `query ListPostsByThread($threadID: ID, $createdAt: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelPostFilterInput, $limit: Int, $nextToken: String) {
+        listPostsByThread(threadID: $threadID, createdAt: $createdAt, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            title
+            content
+            featuredImg
+            createdAt
+            updatedAt
+            threadID
+            thread {
+              __typename
+              id
+              subject
+              featuredImg
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (threadID) {
+      gqlAPIServiceArguments.threadID = threadID;
+    }
+    if (createdAt) {
+      gqlAPIServiceArguments.createdAt = createdAt;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListPostsByThreadQuery>response.data.listPostsByThread;
+  }
+  async SearchThreads(
+    filter?: SearchableThreadFilterInput,
+    sort?: SearchableThreadSortInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<SearchThreadsQuery> {
+    const statement = `query SearchThreads($filter: SearchableThreadFilterInput, $sort: SearchableThreadSortInput, $limit: Int, $nextToken: String) {
+        searchThreads(filter: $filter, sort: $sort, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            subject
+            featuredImg
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              nextToken
+              startedAt
+            }
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          total
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (sort) {
+      gqlAPIServiceArguments.sort = sort;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SearchThreadsQuery>response.data.searchThreads;
+  }
+  async SearchPosts(
+    filter?: SearchablePostFilterInput,
+    sort?: SearchablePostSortInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<SearchPostsQuery> {
+    const statement = `query SearchPosts($filter: SearchablePostFilterInput, $sort: SearchablePostSortInput, $limit: Int, $nextToken: String) {
+        searchPosts(filter: $filter, sort: $sort, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            title
+            content
+            featuredImg
+            createdAt
+            updatedAt
+            threadID
+            thread {
+              __typename
+              id
+              subject
+              featuredImg
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          total
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (sort) {
+      gqlAPIServiceArguments.sort = sort;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SearchPostsQuery>response.data.searchPosts;
+  }
+  async SearchContacts(
+    filter?: SearchableContactFilterInput,
+    sort?: SearchableContactSortInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<SearchContactsQuery> {
+    const statement = `query SearchContacts($filter: SearchableContactFilterInput, $sort: SearchableContactSortInput, $limit: Int, $nextToken: String) {
+        searchContacts(filter: $filter, sort: $sort, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            email
+            subject
+            content
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          total
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (sort) {
+      gqlAPIServiceArguments.sort = sort;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SearchContactsQuery>response.data.searchContacts;
+  }
   OnCreateThreadListener: Observable<OnCreateThreadSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnCreateThread {
@@ -1606,6 +2073,8 @@ export class APIService {
           id
           subject
           featuredImg
+          createdAt
+          updatedAt
           posts {
             __typename
             items {
@@ -1614,12 +2083,12 @@ export class APIService {
               title
               content
               featuredImg
+              createdAt
+              updatedAt
               threadID
               _version
               _deleted
               _lastChangedAt
-              createdAt
-              updatedAt
             }
             nextToken
             startedAt
@@ -1627,8 +2096,6 @@ export class APIService {
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`
     )
@@ -1642,6 +2109,8 @@ export class APIService {
           id
           subject
           featuredImg
+          createdAt
+          updatedAt
           posts {
             __typename
             items {
@@ -1650,12 +2119,12 @@ export class APIService {
               title
               content
               featuredImg
+              createdAt
+              updatedAt
               threadID
               _version
               _deleted
               _lastChangedAt
-              createdAt
-              updatedAt
             }
             nextToken
             startedAt
@@ -1663,8 +2132,6 @@ export class APIService {
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`
     )
@@ -1678,6 +2145,8 @@ export class APIService {
           id
           subject
           featuredImg
+          createdAt
+          updatedAt
           posts {
             __typename
             items {
@@ -1686,12 +2155,12 @@ export class APIService {
               title
               content
               featuredImg
+              createdAt
+              updatedAt
               threadID
               _version
               _deleted
               _lastChangedAt
-              createdAt
-              updatedAt
             }
             nextToken
             startedAt
@@ -1699,8 +2168,6 @@ export class APIService {
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`
     )
@@ -1715,12 +2182,16 @@ export class APIService {
           title
           content
           featuredImg
+          createdAt
+          updatedAt
           threadID
           thread {
             __typename
             id
             subject
             featuredImg
+            createdAt
+            updatedAt
             posts {
               __typename
               nextToken
@@ -1729,14 +2200,10 @@ export class APIService {
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`
     )
@@ -1751,12 +2218,16 @@ export class APIService {
           title
           content
           featuredImg
+          createdAt
+          updatedAt
           threadID
           thread {
             __typename
             id
             subject
             featuredImg
+            createdAt
+            updatedAt
             posts {
               __typename
               nextToken
@@ -1765,14 +2236,10 @@ export class APIService {
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`
     )
@@ -1787,12 +2254,16 @@ export class APIService {
           title
           content
           featuredImg
+          createdAt
+          updatedAt
           threadID
           thread {
             __typename
             id
             subject
             featuredImg
+            createdAt
+            updatedAt
             posts {
               __typename
               nextToken
@@ -1801,14 +2272,10 @@ export class APIService {
             _version
             _deleted
             _lastChangedAt
-            createdAt
-            updatedAt
           }
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`
     )
@@ -1826,11 +2293,11 @@ export class APIService {
           email
           subject
           content
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`
     )
@@ -1848,11 +2315,11 @@ export class APIService {
           email
           subject
           content
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`
     )
@@ -1870,11 +2337,11 @@ export class APIService {
           email
           subject
           content
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
         }
       }`
     )

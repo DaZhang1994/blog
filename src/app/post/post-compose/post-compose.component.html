@@ -1,5 +1,5 @@
 <!--Thread Section Wrapper-->
-<section id="compose-post" class="container-fluid">
+<section id="post-compose" class="container-fluid">
 
   <div class="header-placeholder"></div>
 
@@ -10,7 +10,7 @@
       </mdb-card-header>
 
       <mdb-card-body>
-        <mdb-file-upload #postFeaturedImg ngDefaultControl id="postFeaturedImg" formControlName="postFeaturedImg" (fileRemoved)="onFileRemove()" (fileAdded)="onFileAdd($event)"></mdb-file-upload>
+        <mdb-file-upload #postFeaturedImg ngDefaultControl id="postFeaturedImg" formControlName="postFeaturedImg" (fileRemoved)="onFileRemove()" (fileAdded)="onFileAdd($event)" [height]="500"></mdb-file-upload>
         <div class="md-form">
 
           <input mdbInput mdbValidate type="text" id="postTitle" class="form-control text-center" formControlName="postTitle">

@@ -7,18 +7,20 @@ mutation CreateThread(
     id
     subject
     featuredImg
+    createdAt
+    updatedAt
     posts {
       items {
         id
         title
         content
         featuredImg
+        createdAt
+        updatedAt
         threadID
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
       }
       nextToken
       startedAt
@@ -26,8 +28,6 @@ mutation CreateThread(
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 mutation UpdateThread(
@@ -38,18 +38,20 @@ mutation UpdateThread(
     id
     subject
     featuredImg
+    createdAt
+    updatedAt
     posts {
       items {
         id
         title
         content
         featuredImg
+        createdAt
+        updatedAt
         threadID
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
       }
       nextToken
       startedAt
@@ -57,8 +59,6 @@ mutation UpdateThread(
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 mutation DeleteThread(
@@ -69,18 +69,20 @@ mutation DeleteThread(
     id
     subject
     featuredImg
+    createdAt
+    updatedAt
     posts {
       items {
         id
         title
         content
         featuredImg
+        createdAt
+        updatedAt
         threadID
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
       }
       nextToken
       startedAt
@@ -88,8 +90,6 @@ mutation DeleteThread(
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 mutation CreatePost(
@@ -101,11 +101,15 @@ mutation CreatePost(
     title
     content
     featuredImg
+    createdAt
+    updatedAt
     threadID
     thread {
       id
       subject
       featuredImg
+      createdAt
+      updatedAt
       posts {
         nextToken
         startedAt
@@ -113,14 +117,10 @@ mutation CreatePost(
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 mutation UpdatePost(
@@ -132,11 +132,15 @@ mutation UpdatePost(
     title
     content
     featuredImg
+    createdAt
+    updatedAt
     threadID
     thread {
       id
       subject
       featuredImg
+      createdAt
+      updatedAt
       posts {
         nextToken
         startedAt
@@ -144,14 +148,10 @@ mutation UpdatePost(
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 mutation DeletePost(
@@ -163,11 +163,15 @@ mutation DeletePost(
     title
     content
     featuredImg
+    createdAt
+    updatedAt
     threadID
     thread {
       id
       subject
       featuredImg
+      createdAt
+      updatedAt
       posts {
         nextToken
         startedAt
@@ -175,14 +179,10 @@ mutation DeletePost(
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
     }
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 mutation CreateContact(
@@ -195,11 +195,11 @@ mutation CreateContact(
     email
     subject
     content
+    createdAt
+    updatedAt
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 mutation UpdateContact(
@@ -212,11 +212,11 @@ mutation UpdateContact(
     email
     subject
     content
+    createdAt
+    updatedAt
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
 mutation DeleteContact(
@@ -229,10 +229,10 @@ mutation DeleteContact(
     email
     subject
     content
+    createdAt
+    updatedAt
     _version
     _deleted
     _lastChangedAt
-    createdAt
-    updatedAt
   }
 }
