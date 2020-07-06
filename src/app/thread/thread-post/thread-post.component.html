@@ -1,0 +1,62 @@
+<section id="thread-post" class="container-fluid">
+
+  <div class="header-placeholder"></div>
+
+  <mdb-card >
+
+    <mdb-card-header class="blue white-text text-center py-4">
+      <h1><strong>{{ threadSubject }}</strong></h1>
+    </mdb-card-header>
+
+    <mdb-card-body class="pt-0 pb-0">
+      <!-- Section: Blog v.1 -->
+      <section class="my-5" *ngFor="let postItem of postItems; let last = last;">
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-lg-5 col-xl-4">
+
+            <!-- Featured image -->
+            <div class="view overlay rounded z-depth-1-half mb-lg-0 mb-4 waves-light" mdbWavesEffect>
+              <img class="img-fluid" [src]="postItem?.featuredImg ? postItem.featuredImg : 'assets/img/placeholder.png'" [alt]="postItem?.title">
+              <a [routerLink]="'/posts/view/' + postItem.link">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-lg-7 col-xl-8">
+
+            <!-- Post title -->
+            <h3 class="font-weight-bold mb-3"><strong>{{ postItem.title }}</strong></h3>
+            <!-- Excerpt -->
+            <p class="dark-grey-text">{{ postItem.abstract }}</p>
+            <!-- Post data -->
+            <p class="font-weight-bold dark-grey-text">
+              <mdb-icon far icon="calendar-alt" class="pr-2"></mdb-icon>{{ postItem?.createdAt | date:'medium' }}
+            </p>
+            <!-- Read more button -->
+            <a class="ml-0" mdbBtn color="primary" mdbWavesEffect [routerLink]="'/posts/view/' + postItem.link">Read More</a>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+        <hr *ngIf="!last" class="my-5">
+
+
+      </section>
+      <!-- Section: Blog v.1 -->
+    </mdb-card-body>
+  </mdb-card>
+
+  <div class="footer-placeholder"></div>
+
+</section>
