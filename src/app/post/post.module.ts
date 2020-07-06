@@ -8,11 +8,10 @@ import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 import { PostComposeComponent } from './post-compose/post-compose.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PostLandingComponent } from './post-landing/post-landing.component';
-import { PostThreadComponent } from './post-thread/post-thread.component';
 import { PostEditComponent } from './post-edit/post-edit.component';
 
 @NgModule({
-  declarations: [PostLandingComponent, PostDetailComponent, PostComposeComponent, PostThreadComponent, PostEditComponent],
+  declarations: [PostLandingComponent, PostDetailComponent, PostComposeComponent, PostEditComponent],
   imports: [
     CommonModule,
     MDBBootstrapModulesPro.forRoot(),

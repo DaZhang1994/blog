@@ -1,10 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
-import { Injectable } from "@angular/core";
-import API, { graphqlOperation } from "@aws-amplify/api";
-import { GraphQLResult } from "@aws-amplify/api/lib/types";
-import { Observable } from "zen-observable-ts";
+import { Injectable } from '@angular/core';
+import API, { graphqlOperation } from '@aws-amplify/api';
+import { Observable } from 'zen-observable-ts';
 
 export type CreateThreadInput = {
   id?: string | null;
@@ -208,21 +207,6 @@ export type ModelContactFilterInput = {
   or?: Array<ModelContactFilterInput | null> | null;
   not?: ModelContactFilterInput | null;
 };
-
-export type ModelStringKeyConditionInput = {
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-};
-
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC"
-}
 
 export type SearchableThreadFilterInput = {
   id?: SearchableIDFilterInput | null;
@@ -771,36 +755,6 @@ export type ListContactsQuery = {
     content: string;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted: boolean | null;
-    _lastChangedAt: number;
-  } | null> | null;
-  nextToken: string | null;
-  startedAt: number | null;
-};
-
-export type ListPostsByThreadQuery = {
-  __typename: "ModelPostConnection";
-  items: Array<{
-    __typename: "Post";
-    id: string;
-    title: string;
-    content: string;
-    featuredImg: string | null;
-    createdAt: string;
-    updatedAt: string;
-    threadID: string;
-    thread: {
-      __typename: "Thread";
-      id: string;
-      subject: string;
-      featuredImg: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1855,69 +1809,6 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListContactsQuery>response.data.listContacts;
-  }
-  async ListPostsByThread(
-    threadID?: string,
-    createdAt?: ModelStringKeyConditionInput,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelPostFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListPostsByThreadQuery> {
-    const statement = `query ListPostsByThread($threadID: ID, $createdAt: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelPostFilterInput, $limit: Int, $nextToken: String) {
-        listPostsByThread(threadID: $threadID, createdAt: $createdAt, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            id
-            title
-            content
-            featuredImg
-            createdAt
-            updatedAt
-            threadID
-            thread {
-              __typename
-              id
-              subject
-              featuredImg
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (threadID) {
-      gqlAPIServiceArguments.threadID = threadID;
-    }
-    if (createdAt) {
-      gqlAPIServiceArguments.createdAt = createdAt;
-    }
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <ListPostsByThreadQuery>response.data.listPostsByThread;
   }
   async SearchThreads(
     filter?: SearchableThreadFilterInput,

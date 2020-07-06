@@ -5,14 +5,14 @@ import { ContactComponent } from './contact/contact.component';
 import { PageNotFound } from './error/page_not_found/page_not_found.component';
 import { HeaderComponent } from './header/header.component';
 import { LandingComponent } from './landing/landing.component';
-import { PostEditComponent } from './post/post-edit/post-edit.component';
-import { PostThreadComponent } from './post/post-thread/post-thread.component';
-import { ResumeComponent } from './resume/resume.component';
 import { PostComposeComponent } from './post/post-compose/post-compose.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
+import { PostEditComponent } from './post/post-edit/post-edit.component';
 import { PostLandingComponent } from './post/post-landing/post-landing.component';
+import { ResumeComponent } from './resume/resume.component';
 import { ThreadComposeComponent } from './thread/thread-compose/thread-compose.component';
 import { ThreadEditComponent } from './thread/thread-edit/thread-edit.component';
+import { ThreadPostComponent } from './thread/thread-post/thread-post.component';
 
 const routes: Routes = [
   {
@@ -51,11 +51,6 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'threads/:id',
-        component: PostThreadComponent,
-        pathMatch: 'full'
-      },
-      {
         path: '**',
         component: PageNotFound,
       },
@@ -67,7 +62,7 @@ const routes: Routes = [
     children: [
       {
         path: 'view/:id',
-        component: PostDetailComponent,
+        component: ThreadPostComponent,
         pathMatch: 'full'
       },
       {
