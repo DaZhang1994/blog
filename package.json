@@ -1,10 +1,10 @@
 {
   "name": "blog",
-  "version": "8.8.2",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "node --max_old_space_size=12288 ./node_modules/@angular/cli/bin/ng build --prod --aot --build-optimizer --vendor-chunk --source-map=false ",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -78,19 +78,13 @@
     "@types/jest": "^26.0.3",
     "@types/node": "^14.0.14",
     "codelyzer": "^6.0.0",
-    "husky": "^4.2.5",
     "jasmine-core": "^3.5.0",
     "jasmine-spec-reporter": "^5.0.2",
-    "jest": "^26.1.0",
-    "jest-preset-angular": "^8.2.1",
     "ng-packagr": "^10.0.0",
-    "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1",
     "protractor": "^7.0.0",
     "ts-node": "^8.10.2",
     "tsickle": "^0.39.0",
     "tslib": "^2.0.0",
-    "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.9.6"
   }
