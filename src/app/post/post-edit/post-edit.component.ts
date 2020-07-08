@@ -117,21 +117,24 @@ export class PostEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async onDelete() {
-    try {
-      this.apiService.DeletePost({id: this.post.id, _version: this.post._version}).catch(e => {
-        throw new Error(e);
-      });
-      Storage.remove(this.post.featuredImg).catch(e => {
-        throw new Error(e);
-      });
-    }
-    catch (e) {
-      alert('Post deleted failed! Please try again later!');
-      location.reload();
-    }
+    if(confirm('Are you sure to delete this post?')) {
+      try {
+        this.apiService.DeletePost({id: this.post.id, _version: this.post._version}).catch(e => {
+          throw new Error(e);
+        });
+        Storage.remove(this.post.featuredImg).catch(e => {
+          throw new Error(e);
+        });
+      }
+      catch (e) {
+        alert('Post deleted failed! Please try again later!');
+        location.reload();
+        return;
+      }
 
-    alert('Post deleted successfully!');
-    await this.router.navigate(['/posts']);
+      alert('Post deleted successfully!');
+      await this.router.navigate(['/posts']);
+    }
   }
 
   ngOnDestroy() {

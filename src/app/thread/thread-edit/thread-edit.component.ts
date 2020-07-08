@@ -94,7 +94,9 @@ export class ThreadEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
     catch (e) {
+      alert('Thread edited failed! Please try again later!');
       console.error(e);
+      return;
     }
 
     alert('Thread edited successfully!');
@@ -102,21 +104,25 @@ export class ThreadEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async onDelete() {
-    try {
-      this.apiService.DeleteThread({id: this.thread.id, _version: this.thread._version}).catch(e => {
-        throw new Error(e);
-      });
-      Storage.remove(this.thread.featuredImg).catch(e => {
-        throw new Error(e);
-      });
-    }
-    catch (e) {
-      alert('Thread deleted failed! Please try again later!');
-      location.reload();
+    if(confirm('Are you sure to delete this thread?')) {
+      try {
+        this.apiService.DeleteThread({id: this.thread.id, _version: this.thread._version}).catch(e => {
+          throw new Error(e);
+        });
+        Storage.remove(this.thread.featuredImg).catch(e => {
+          throw new Error(e);
+        });
+      }
+      catch (e) {
+        alert('Thread deleted failed! Please try again later!');
+        location.reload();
+        return;
+      }
+
+      alert('Thread deleted successfully!');
+      await this.router.navigate(['/posts']);
     }
 
-    alert('Thread deleted successfully!');
-    await this.router.navigate(['/posts']);
   }
 
   ngOnDestroy() {

@@ -66,8 +66,9 @@ export class ThreadComposeComponent implements OnInit, AfterViewInit {
       });
     }
     catch (e) {
-      console.error(e);
       alert('Thread composed failed! Please try again later!');
+      console.error(e);
+      return;
     }
 
     alert('Thread composed successfully!');

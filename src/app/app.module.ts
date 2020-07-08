@@ -19,18 +19,19 @@ import { PostModule } from './post/post.module';
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { ThreadModule } from './thread/thread.module';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
     AmplifyUIAngularModule,
-    QuillModule.forRoot({
-
-    }),
     BrowserModule,
     AppRoutingModule,
     MDBBootstrapModulesPro.forRoot(),
     ToastModule.forRoot(),
+    QuillModule.forRoot({
+      modules: {
+        syntax: true
+      }
+    }),
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

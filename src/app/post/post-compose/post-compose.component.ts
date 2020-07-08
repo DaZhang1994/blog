@@ -84,6 +84,7 @@ export class PostComposeComponent implements OnInit, AfterViewInit {
     catch (e) {
       console.error(e);
       alert('Post composed failed! Please try again later!');
+      return;
     }
 
     alert('Post composed successfully!');
