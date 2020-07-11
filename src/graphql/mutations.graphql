@@ -6,7 +6,12 @@ mutation CreateThread(
   createThread(input: $input, condition: $condition) {
     id
     subject
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     posts {
@@ -14,7 +19,6 @@ mutation CreateThread(
         id
         title
         content
-        featuredImg
         createdAt
         updatedAt
         threadID
@@ -37,7 +41,12 @@ mutation UpdateThread(
   updateThread(input: $input, condition: $condition) {
     id
     subject
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     posts {
@@ -45,7 +54,6 @@ mutation UpdateThread(
         id
         title
         content
-        featuredImg
         createdAt
         updatedAt
         threadID
@@ -68,7 +76,12 @@ mutation DeleteThread(
   deleteThread(input: $input, condition: $condition) {
     id
     subject
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     posts {
@@ -76,7 +89,6 @@ mutation DeleteThread(
         id
         title
         content
-        featuredImg
         createdAt
         updatedAt
         threadID
@@ -100,14 +112,24 @@ mutation CreatePost(
     id
     title
     content
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     threadID
     thread {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {
@@ -131,14 +153,24 @@ mutation UpdatePost(
     id
     title
     content
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     threadID
     thread {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {
@@ -162,14 +194,24 @@ mutation DeletePost(
     id
     title
     content
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     threadID
     thread {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {

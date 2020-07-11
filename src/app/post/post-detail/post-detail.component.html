@@ -5,14 +5,14 @@
 
   <mdb-card>
     <mdb-card-header class="text-center view p-0" id="featured-header">
-      <img [src]="featuredImg ? featuredImg : 'assets/img/placeholder.png'" style="width: 100%; height: 500px" [alt]="post?.title">
+      <img [src]="post?.featuredImg ? s3StorageService.getS3ObjectUrl(post.featuredImg) : 'assets/img/placeholder.png'" style="width: 100%; height: 500px" [alt]="post?.title">
       <div class="mask flex-center pattern-1"></div>
     </mdb-card-header>
 
     <mdb-card-body>
-      <h2 class="text-center"><strong>{{ post?.title }}</strong></h2>
+      <h1 class="text-center"><strong>{{ post?.title }}</strong></h1>
       <h6 class="text-center"><em>{{ post?.createdAt | date:'medium' }}</em></h6>
-      <quill-view [content]="post?.content" format="html" theme="snow"></quill-view>
+      <div class="fr-view" [innerHTML]="post?.content" ></div>
     </mdb-card-body>
   </mdb-card>
 

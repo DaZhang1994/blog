@@ -1,31 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from 'aws-amplify';
+import { Post, Thread } from '../../../models';
 import {
   APIService,
-  GetPostQuery, GetThreadQuery,
   SearchablePostSortableFields,
   SearchableSortDirection,
   SearchableThreadSortableFields,
   SearchPostsQuery,
   SearchThreadsQuery,
 } from '../../API.service';
-
-class PostCard {
-  title: string;
-  abstract: string;
-  link: string;
-  featuredImg?: string;
-}
-
-class ThreadThumbnail {
-  subject: string;
-  link: string;
-  featuredImg?: string
-}
+import { S3StorageService } from '../../s3storage/s3StorageService';
 
 const NEWEST_LIMIT = 9;
-const SLIDER_SIZE = 3;
-const THREAD_ROW_SIZE = 3;
 
 @Component({
   selector: 'app-thread-landing',
@@ -34,15 +19,18 @@ const THREAD_ROW_SIZE = 3;
 })
 export class PostLandingComponent implements OnInit {
 
-  postCards: PostCard[] = [];
-  postCardSliders: PostCard[][] = [[]];
+  posts: Post[] = [];
+  postSliders: Post[][] = [[]];
 
-  threadThumbnails: ThreadThumbnail[] = [];
-  threadThumbnailRows: ThreadThumbnail[][] = [[]]
+  threads: Thread[] = [];
+  threadSliders: Thread[][] = [[]];
 
   domParser: DOMParser = new DOMParser();
 
-  constructor(private readonly apiService: APIService) { }
+  constructor(private readonly apiService: APIService,
+              public readonly s3StorageService: S3StorageService) {
+
+  }
 
   chunk(arr: any, chunkSize:any) {
     let R = [];
@@ -60,41 +48,20 @@ export class PostLandingComponent implements OnInit {
   initPosts() {
     this.apiService.SearchPosts(
       undefined,
-      {
-        field: SearchablePostSortableFields.createdAt,
-        direction: SearchableSortDirection.desc
-      },
-      NEWEST_LIMIT)
-      .then( ({ items: posts }: SearchPostsQuery) => {
-        posts.map((post: GetPostQuery) => {
-          const card: PostCard = new PostCard();
-          this.postCards.push(card);
-          Storage.get(post.featuredImg).then((featuredImg: string) => card.featuredImg = featuredImg);
-          card.title = post.title;
-          card.link = post.id;
-          card.abstract = this.domParser.parseFromString(post.content, 'text/html')?.querySelector('p')?.innerText?.substring(0, 400) + '...';
-        });
-        this.postCardSliders = this.chunk(this.postCards, SLIDER_SIZE);
+      { field: SearchablePostSortableFields.createdAt, direction: SearchableSortDirection.desc }, NEWEST_LIMIT)
+      .then(({ items: posts }: SearchPostsQuery) => {
+        this.posts = posts;
+        this.postSliders = this.chunk(this.posts, 3);
       });
   }
 
   initThreads() {
     this.apiService.SearchThreads(
-      undefined,
-      {
-        field: SearchableThreadSortableFields.createdAt,
-        direction: SearchableSortDirection.asc
-      },
-      NEWEST_LIMIT)
-      .then( ({ items: threads }: SearchThreadsQuery) => {
-        threads.map((thread: GetThreadQuery) => {
-          const threadThumbnail: ThreadThumbnail = new ThreadThumbnail();
-          this.threadThumbnails.push(threadThumbnail);
-          Storage.get(thread.featuredImg).then((featuredImg: string) => threadThumbnail.featuredImg = featuredImg);
-          threadThumbnail.subject = thread.subject;
-          threadThumbnail.link = thread.id;
-        })
-        this.threadThumbnailRows = this.chunk(this.threadThumbnails, THREAD_ROW_SIZE);
+      undefined, { field: SearchableThreadSortableFields.createdAt, direction: SearchableSortDirection.asc }, NEWEST_LIMIT)
+      .then(({ items: threads }: SearchThreadsQuery)=> {
+        // @ts-ignore
+        this.threads = threads;
+        this.threadSliders = this.chunk(this.threads, 3);
       });
   }
 

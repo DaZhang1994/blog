@@ -5,6 +5,8 @@ import { Storage } from 'aws-amplify';
 import { MdbFileUploadComponent } from 'mdb-file-upload';
 import { v4 as uuidv4 } from 'uuid';
 import { APIService, GetPostQuery } from '../../API.service';
+import { EditorService } from '../../editor/editor.service';
+import { S3StorageService } from '../../s3storage/s3StorageService';
 
 @Component({
   selector: 'app-post-edit',
@@ -24,7 +26,16 @@ export class PostEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
   post: GetPostQuery;
 
-  constructor(private readonly router: Router, private formBuilder: FormBuilder, private apiService: APIService, private readonly route: ActivatedRoute) {
+  postComposeEditor: any;
+
+  featuredImageChanged: boolean = false;
+
+  constructor(private readonly router: Router,
+              private formBuilder: FormBuilder,
+              private apiService: APIService,
+              private readonly route: ActivatedRoute,
+              private readonly editorService: EditorService,
+              private readonly s3StorageService: S3StorageService) {
 
   }
 
@@ -33,28 +44,27 @@ export class PostEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.editPostForm = this.formBuilder.group({
       postTitle: [ null, [ Validators.required ] ],
       postFeaturedImg: [ null, [ Validators.required ] ],
-      postContent: [ null, [ Validators.required, Validators.nullValidator ] ],
       postThread: [ null, [ Validators.required, Validators.minLength(8) ] ]
     });
 
-    this.threads = (await this.apiService.ListThreads()).items;
+    this.postComposeEditor = await this.editorService.buildEditorAsync('div#post-edit-editor');
+
+    this.apiService.ListThreads().then(({ items }) => this.threads = items);
 
     this.idSub = this.route.params.subscribe(async (params: any) => {
       this.post = await this.apiService.GetPost(params.id);
+
       if(this.post == null) {
         await this.router.navigate(['404']);
         return;
       }
-      Storage.get(this.post.featuredImg, { download: true }).then((featuredImg: any) => {
-        const featuredImgFile: File = new File([featuredImg.Body], this.post.featuredImg, { type: 'image/jpeg' })
-        this.postFeaturedImgEl.showPreview(featuredImgFile)
-        this.postFeaturedImgEl.defaultPreview = true;
-        this.postFeaturedImg.setValue(featuredImgFile);
-      });
+
+      this.postFeaturedImgEl.defaultFile = this.s3StorageService.getS3ObjectUrl(this.post.featuredImg);
       this.postTitle.setValue(this.post.title);
-      this.postContent.setValue(this.post.content);
       this.postThread.setValue(this.post.threadID);
+      this.postComposeEditor.html.set(this.post.content);
     });
+
   }
 
   get postTitle() {
@@ -66,7 +76,7 @@ export class PostEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get postContent() {
-    return this.editPostForm.get('postContent');
+    return this.postComposeEditor.html.get();
   }
 
   get postThread() {
@@ -74,6 +84,7 @@ export class PostEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onFileAdd(file: File) {
+    this.featuredImageChanged = true;
     this.postFeaturedImg.setValue(file);
   }
 
@@ -92,24 +103,34 @@ export class PostEditComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
 
       let fileName = null;
-      if(editorInput.postFeaturedImg) {
+      if(this.featuredImageChanged && editorInput.postFeaturedImg) {
         fileName = uuidv4() + '.' + editorInput.postFeaturedImg.name;
-        await Storage.remove(this.post.featuredImg);
-        await Storage.put(fileName, editorInput.postFeaturedImg);
+        try {
+          await Storage.remove(this.post.featuredImg.fileName);
+        }
+        catch (e) {
+
+        }
+        await Storage.put(fileName, editorInput.postFeaturedImg, {
+          contentType: 'image/jpeg',
+          acl: 'public-read'
+        });
       }
 
       await this.apiService.UpdatePost({
         id: this.post.id,
         title: editorInput.postTitle,
-        content: editorInput.postContent,
-        featuredImg: fileName,
+        content: this.postContent,
+        featuredImg: fileName ? { bucket: 'blog181257-env', region: 'us-west-2', path: 'public', fileName: fileName } : { bucket: 'blog181257-env', region: 'us-west-2', path: 'public', fileName: this.post.featuredImg.fileName },
         threadID: editorInput.postThread,
         _version: this.post._version
       })
 
     }
     catch (e) {
+      alert('Post edited failed! Please try again later!');
       console.error(e);
+      return;
     }
 
     alert('Post edited successfully!');
@@ -122,13 +143,12 @@ export class PostEditComponent implements OnInit, AfterViewInit, OnDestroy {
         this.apiService.DeletePost({id: this.post.id, _version: this.post._version}).catch(e => {
           throw new Error(e);
         });
-        Storage.remove(this.post.featuredImg).catch(e => {
-          throw new Error(e);
+        Storage.remove(this.post.featuredImg?.fileName).catch(_e => {
+
         });
       }
       catch (e) {
         alert('Post deleted failed! Please try again later!');
-        location.reload();
         return;
       }
 

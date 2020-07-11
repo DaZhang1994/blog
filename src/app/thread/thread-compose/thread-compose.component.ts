@@ -17,7 +17,9 @@ export class ThreadComposeComponent implements OnInit, AfterViewInit {
 
   composeThreadForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private apiService: APIService) {
+  constructor(private formBuilder: FormBuilder,
+              private apiService: APIService) {
+
   }
 
   async ngOnInit(): Promise<void> {
@@ -56,13 +58,14 @@ export class ThreadComposeComponent implements OnInit, AfterViewInit {
       if(composeThreadForm.threadFeaturedImg) {
         fileName = uuidv4() + '.' + composeThreadForm.threadFeaturedImg.name;
         await Storage.put(fileName, composeThreadForm.threadFeaturedImg, {
-          contentType: 'image/jpeg'
+          contentType: 'image/jpeg',
+          acl: 'public-read'
         });
       }
 
       await this.apiService.CreateThread({
         subject: composeThreadForm.threadSubject,
-        featuredImg: fileName
+        featuredImg: fileName ? { bucket: 'blog181257-env', region: 'us-west-2', path: 'public', fileName: fileName } : null
       });
     }
     catch (e) {

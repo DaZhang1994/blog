@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from 'aws-amplify';
 import { MdbFileUploadComponent } from 'mdb-file-upload';
+import { Subscription } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
-import { APIService } from '../../API.service';
+import { APIService, GetThreadQuery } from '../../API.service';
+import { S3StorageService } from '../../s3storage/s3StorageService';
 
 @Component({
   selector: 'app-thread-edit',
@@ -16,13 +18,19 @@ export class ThreadEditComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('threadFeaturedImg')
   threadFeaturedImgEl: MdbFileUploadComponent;
 
-  idSub: any;
+  idSub: Subscription;
 
   editThreadForm: FormGroup;
 
-  thread: any;
+  thread: GetThreadQuery;
 
-  constructor(private readonly router: Router, private formBuilder: FormBuilder, private apiService: APIService, private readonly route: ActivatedRoute) {
+  featuredImageChanged: boolean = false;
+
+  constructor(private readonly router: Router,
+              private readonly formBuilder: FormBuilder,
+              private readonly apiService: APIService,
+              private readonly route: ActivatedRoute,
+              private readonly s3StorageService: S3StorageService) {
 
   }
 
@@ -34,20 +42,14 @@ export class ThreadEditComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.idSub = this.route.params.subscribe(async (params: any) => {
-
       this.thread = await this.apiService.GetThread(params.id);
+
       if(this.thread == null) {
         await this.router.navigate(['404']);
         return;
       }
 
-      Storage.get(this.thread.featuredImg, { download: true }).then((featuredImg: any) => {
-        const featuredImgFile: File = new File([featuredImg.Body], this.thread.featuredImg, { type: 'image/jpeg' })
-        this.threadFeaturedImgEl.showPreview(featuredImgFile);
-        this.threadFeaturedImgEl.defaultPreview = true;
-        this.threadFeaturedImg.setValue(featuredImgFile);
-      });
-
+      this.threadFeaturedImgEl.defaultFile = this.s3StorageService.getS3ObjectUrl(this.thread.featuredImg);
       this.threadSubject.setValue(this.thread.subject);
     });
   }
@@ -61,6 +63,7 @@ export class ThreadEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onFileAdd(file: File) {
+    this.featuredImageChanged = true;
     this.threadFeaturedImg.setValue(file);
   }
 
@@ -79,16 +82,21 @@ export class ThreadEditComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
 
       let fileName = null;
-      if(editThreadForm.threadFeaturedImg) {
+      if(this.featuredImageChanged && editThreadForm.threadFeaturedImg){
         fileName = uuidv4() + '.' + editThreadForm.threadFeaturedImg.name;
-        await Storage.remove(this.thread.featuredImg);
+        try{
+          await Storage.remove(this.thread.featuredImg.fileName);
+        }
+        catch (e) {
+
+        }
         await Storage.put(fileName, editThreadForm.threadFeaturedImg);
       }
 
       await this.apiService.UpdateThread({
         id: this.thread.id,
         subject: editThreadForm.threadSubject,
-        featuredImg: fileName,
+        featuredImg: fileName ? { bucket: 'blog181257-env', region: 'us-west-2', path: 'public', fileName: fileName } : { bucket: 'blog181257-env', region: 'us-west-2', path: 'public', fileName: this.thread.featuredImg.fileName },
         _version: this.thread._version
       })
 
@@ -109,13 +117,12 @@ export class ThreadEditComponent implements OnInit, AfterViewInit, OnDestroy {
         this.apiService.DeleteThread({id: this.thread.id, _version: this.thread._version}).catch(e => {
           throw new Error(e);
         });
-        Storage.remove(this.thread.featuredImg).catch(e => {
-          throw new Error(e);
+        Storage.remove(this.thread.featuredImg?.fileName).catch(_e => {
+
         });
       }
       catch (e) {
         alert('Thread deleted failed! Please try again later!');
-        location.reload();
         return;
       }
 

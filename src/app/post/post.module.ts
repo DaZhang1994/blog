@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MdbFileUploadModule } from 'mdb-file-upload';
-import { QuillModule } from 'ngx-quill';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
+import { EditorModule } from '../editor/editor.module';
+import { S3storageModule } from '../s3storage/s3storage.module';
 import { PostComposeComponent } from './post-compose/post-compose.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
-import { PostLandingComponent } from './post-landing/post-landing.component';
 import { PostEditComponent } from './post-edit/post-edit.component';
+import { PostLandingComponent } from './post-landing/post-landing.component';
 
 @NgModule({
   declarations: [PostLandingComponent, PostDetailComponent, PostComposeComponent, PostEditComponent],
@@ -19,7 +20,8 @@ import { PostEditComponent } from './post-edit/post-edit.component';
     ReactiveFormsModule,
     FormsModule,
     MdbFileUploadModule,
-    QuillModule.forRoot()
-  ]
+    EditorModule,
+    S3storageModule
+  ],
 })
 export class PostModule { }

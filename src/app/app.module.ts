@@ -5,12 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdbFileUploadModule } from 'mdb-file-upload';
-import { QuillModule } from 'ngx-quill';
 import { MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule, ToastService } from 'ng-uikit-pro-standard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { ContactModule } from './contact/contact.module';
+import { EditorModule } from './editor/editor.module';
 import { ErrorModule } from './error/error.module';
 import { HeaderModule } from './header/header.module';
 import { LandingModule } from './landing/landing.module';
@@ -18,6 +18,7 @@ import { ResumeModule } from './resume/resume.module';
 import { PostModule } from './post/post.module';
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { ThreadModule } from './thread/thread.module';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,11 +28,6 @@ import { ThreadModule } from './thread/thread.module';
     AppRoutingModule,
     MDBBootstrapModulesPro.forRoot(),
     ToastModule.forRoot(),
-    QuillModule.forRoot({
-      modules: {
-        syntax: true
-      }
-    }),
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -45,7 +41,10 @@ import { ThreadModule } from './thread/thread.module';
     MdbFileUploadModule,
     ResumeModule,
     AuthModule,
-    ThreadModule
+    ThreadModule,
+    EditorModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [
     MDBSpinningPreloader,

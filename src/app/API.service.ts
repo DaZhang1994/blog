@@ -8,15 +8,21 @@ import { Observable } from 'zen-observable-ts';
 export type CreateThreadInput = {
   id?: string | null;
   subject: string;
-  featuredImg?: string | null;
+  featuredImg?: S3ObjectInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
 };
 
+export type S3ObjectInput = {
+  bucket: string;
+  region: string;
+  path: string;
+  fileName: string;
+};
+
 export type ModelThreadConditionInput = {
   subject?: ModelStringInput | null;
-  featuredImg?: ModelStringInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
   and?: Array<ModelThreadConditionInput | null> | null;
@@ -66,7 +72,7 @@ export type ModelSizeInput = {
 export type UpdateThreadInput = {
   id: string;
   subject?: string | null;
-  featuredImg?: string | null;
+  featuredImg?: S3ObjectInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -81,7 +87,7 @@ export type CreatePostInput = {
   id?: string | null;
   title: string;
   content: string;
-  featuredImg?: string | null;
+  featuredImg?: S3ObjectInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   threadID: string;
@@ -91,7 +97,6 @@ export type CreatePostInput = {
 export type ModelPostConditionInput = {
   title?: ModelStringInput | null;
   content?: ModelStringInput | null;
-  featuredImg?: ModelStringInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
   threadID?: ModelIDInput | null;
@@ -120,7 +125,7 @@ export type UpdatePostInput = {
   id: string;
   title?: string | null;
   content?: string | null;
-  featuredImg?: string | null;
+  featuredImg?: S3ObjectInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   threadID?: string | null;
@@ -174,7 +179,6 @@ export type DeleteContactInput = {
 export type ModelThreadFilterInput = {
   id?: ModelIDInput | null;
   subject?: ModelStringInput | null;
-  featuredImg?: ModelStringInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
   and?: Array<ModelThreadFilterInput | null> | null;
@@ -186,7 +190,6 @@ export type ModelPostFilterInput = {
   id?: ModelIDInput | null;
   title?: ModelStringInput | null;
   content?: ModelStringInput | null;
-  featuredImg?: ModelStringInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
   threadID?: ModelIDInput | null;
@@ -211,7 +214,6 @@ export type ModelContactFilterInput = {
 export type SearchableThreadFilterInput = {
   id?: SearchableIDFilterInput | null;
   subject?: SearchableStringFilterInput | null;
-  featuredImg?: SearchableStringFilterInput | null;
   createdAt?: SearchableStringFilterInput | null;
   updatedAt?: SearchableStringFilterInput | null;
   and?: Array<SearchableThreadFilterInput | null> | null;
@@ -259,7 +261,6 @@ export type SearchableThreadSortInput = {
 export enum SearchableThreadSortableFields {
   id = "id",
   subject = "subject",
-  featuredImg = "featuredImg",
   createdAt = "createdAt",
   updatedAt = "updatedAt"
 }
@@ -273,7 +274,6 @@ export type SearchablePostFilterInput = {
   id?: SearchableIDFilterInput | null;
   title?: SearchableStringFilterInput | null;
   content?: SearchableStringFilterInput | null;
-  featuredImg?: SearchableStringFilterInput | null;
   createdAt?: SearchableStringFilterInput | null;
   updatedAt?: SearchableStringFilterInput | null;
   threadID?: SearchableIDFilterInput | null;
@@ -291,7 +291,6 @@ export enum SearchablePostSortableFields {
   id = "id",
   title = "title",
   content = "content",
-  featuredImg = "featuredImg",
   createdAt = "createdAt",
   updatedAt = "updatedAt",
   threadID = "threadID"
@@ -329,7 +328,13 @@ export type CreateThreadMutation = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   posts: {
@@ -339,7 +344,6 @@ export type CreateThreadMutation = {
       id: string;
       title: string;
       content: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       threadID: string;
@@ -359,7 +363,13 @@ export type UpdateThreadMutation = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   posts: {
@@ -369,7 +379,6 @@ export type UpdateThreadMutation = {
       id: string;
       title: string;
       content: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       threadID: string;
@@ -389,7 +398,13 @@ export type DeleteThreadMutation = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   posts: {
@@ -399,7 +414,6 @@ export type DeleteThreadMutation = {
       id: string;
       title: string;
       content: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       threadID: string;
@@ -420,7 +434,13 @@ export type CreatePostMutation = {
   id: string;
   title: string;
   content: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   threadID: string;
@@ -428,7 +448,13 @@ export type CreatePostMutation = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -450,7 +476,13 @@ export type UpdatePostMutation = {
   id: string;
   title: string;
   content: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   threadID: string;
@@ -458,7 +490,13 @@ export type UpdatePostMutation = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -480,7 +518,13 @@ export type DeletePostMutation = {
   id: string;
   title: string;
   content: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   threadID: string;
@@ -488,7 +532,13 @@ export type DeletePostMutation = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -553,7 +603,13 @@ export type SyncThreadsQuery = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -573,7 +629,13 @@ export type GetThreadQuery = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   posts: {
@@ -583,7 +645,6 @@ export type GetThreadQuery = {
       id: string;
       title: string;
       content: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       threadID: string;
@@ -605,7 +666,13 @@ export type ListThreadsQuery = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -628,7 +695,13 @@ export type SyncPostsQuery = {
     id: string;
     title: string;
     content: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     threadID: string;
@@ -636,7 +709,6 @@ export type SyncPostsQuery = {
       __typename: "Thread";
       id: string;
       subject: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       _version: number;
@@ -656,7 +728,13 @@ export type GetPostQuery = {
   id: string;
   title: string;
   content: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   threadID: string;
@@ -664,7 +742,13 @@ export type GetPostQuery = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -688,7 +772,13 @@ export type ListPostsQuery = {
     id: string;
     title: string;
     content: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     threadID: string;
@@ -696,7 +786,6 @@ export type ListPostsQuery = {
       __typename: "Thread";
       id: string;
       subject: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       _version: number;
@@ -769,7 +858,13 @@ export type SearchThreadsQuery = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -792,7 +887,13 @@ export type SearchPostsQuery = {
     id: string;
     title: string;
     content: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     threadID: string;
@@ -800,7 +901,6 @@ export type SearchPostsQuery = {
       __typename: "Thread";
       id: string;
       subject: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       _version: number;
@@ -838,7 +938,13 @@ export type OnCreateThreadSubscription = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   posts: {
@@ -848,7 +954,6 @@ export type OnCreateThreadSubscription = {
       id: string;
       title: string;
       content: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       threadID: string;
@@ -868,7 +973,13 @@ export type OnUpdateThreadSubscription = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   posts: {
@@ -878,7 +989,6 @@ export type OnUpdateThreadSubscription = {
       id: string;
       title: string;
       content: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       threadID: string;
@@ -898,7 +1008,13 @@ export type OnDeleteThreadSubscription = {
   __typename: "Thread";
   id: string;
   subject: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   posts: {
@@ -908,7 +1024,6 @@ export type OnDeleteThreadSubscription = {
       id: string;
       title: string;
       content: string;
-      featuredImg: string | null;
       createdAt: string;
       updatedAt: string;
       threadID: string;
@@ -929,7 +1044,13 @@ export type OnCreatePostSubscription = {
   id: string;
   title: string;
   content: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   threadID: string;
@@ -937,7 +1058,13 @@ export type OnCreatePostSubscription = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -959,7 +1086,13 @@ export type OnUpdatePostSubscription = {
   id: string;
   title: string;
   content: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   threadID: string;
@@ -967,7 +1100,13 @@ export type OnUpdatePostSubscription = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -989,7 +1128,13 @@ export type OnDeletePostSubscription = {
   id: string;
   title: string;
   content: string;
-  featuredImg: string | null;
+  featuredImg: {
+    __typename: "S3Object";
+    bucket: string;
+    region: string;
+    path: string;
+    fileName: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
   threadID: string;
@@ -997,7 +1142,13 @@ export type OnDeletePostSubscription = {
     __typename: "Thread";
     id: string;
     subject: string;
-    featuredImg: string | null;
+    featuredImg: {
+      __typename: "S3Object";
+      bucket: string;
+      region: string;
+      path: string;
+      fileName: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
     posts: {
@@ -1069,7 +1220,13 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           posts {
@@ -1079,7 +1236,6 @@ export class APIService {
               id
               title
               content
-              featuredImg
               createdAt
               updatedAt
               threadID
@@ -1115,7 +1271,13 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           posts {
@@ -1125,7 +1287,6 @@ export class APIService {
               id
               title
               content
-              featuredImg
               createdAt
               updatedAt
               threadID
@@ -1161,7 +1322,13 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           posts {
@@ -1171,7 +1338,6 @@ export class APIService {
               id
               title
               content
-              featuredImg
               createdAt
               updatedAt
               threadID
@@ -1208,7 +1374,13 @@ export class APIService {
           id
           title
           content
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           threadID
@@ -1216,7 +1388,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {
@@ -1254,7 +1432,13 @@ export class APIService {
           id
           title
           content
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           threadID
@@ -1262,7 +1446,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {
@@ -1300,7 +1490,13 @@ export class APIService {
           id
           title
           content
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           threadID
@@ -1308,7 +1504,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {
@@ -1439,7 +1641,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {
@@ -1479,7 +1687,13 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           posts {
@@ -1489,7 +1703,6 @@ export class APIService {
               id
               title
               content
-              featuredImg
               createdAt
               updatedAt
               threadID
@@ -1525,7 +1738,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {
@@ -1570,7 +1789,13 @@ export class APIService {
             id
             title
             content
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             threadID
@@ -1578,7 +1803,6 @@ export class APIService {
               __typename
               id
               subject
-              featuredImg
               createdAt
               updatedAt
               _version
@@ -1618,7 +1842,13 @@ export class APIService {
           id
           title
           content
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           threadID
@@ -1626,7 +1856,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {
@@ -1664,7 +1900,13 @@ export class APIService {
             id
             title
             content
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             threadID
@@ -1672,7 +1914,6 @@ export class APIService {
               __typename
               id
               subject
-              featuredImg
               createdAt
               updatedAt
               _version
@@ -1823,7 +2064,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {
@@ -1871,7 +2118,13 @@ export class APIService {
             id
             title
             content
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             threadID
@@ -1879,7 +2132,6 @@ export class APIService {
               __typename
               id
               subject
-              featuredImg
               createdAt
               updatedAt
               _version
@@ -1963,7 +2215,13 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           posts {
@@ -1973,7 +2231,6 @@ export class APIService {
               id
               title
               content
-              featuredImg
               createdAt
               updatedAt
               threadID
@@ -1999,7 +2256,13 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           posts {
@@ -2009,7 +2272,6 @@ export class APIService {
               id
               title
               content
-              featuredImg
               createdAt
               updatedAt
               threadID
@@ -2035,7 +2297,13 @@ export class APIService {
           __typename
           id
           subject
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           posts {
@@ -2045,7 +2313,6 @@ export class APIService {
               id
               title
               content
-              featuredImg
               createdAt
               updatedAt
               threadID
@@ -2072,7 +2339,13 @@ export class APIService {
           id
           title
           content
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           threadID
@@ -2080,7 +2353,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {
@@ -2108,7 +2387,13 @@ export class APIService {
           id
           title
           content
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           threadID
@@ -2116,7 +2401,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {
@@ -2144,7 +2435,13 @@ export class APIService {
           id
           title
           content
-          featuredImg
+          featuredImg {
+            __typename
+            bucket
+            region
+            path
+            fileName
+          }
           createdAt
           updatedAt
           threadID
@@ -2152,7 +2449,13 @@ export class APIService {
             __typename
             id
             subject
-            featuredImg
+            featuredImg {
+              __typename
+              bucket
+              region
+              path
+              fileName
+            }
             createdAt
             updatedAt
             posts {

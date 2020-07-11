@@ -14,7 +14,12 @@ query SyncThreads(
     items {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {
@@ -33,7 +38,12 @@ query GetThread($id: ID!) {
   getThread(id: $id) {
     id
     subject
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     posts {
@@ -41,7 +51,6 @@ query GetThread($id: ID!) {
         id
         title
         content
-        featuredImg
         createdAt
         updatedAt
         threadID
@@ -66,7 +75,12 @@ query ListThreads(
     items {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {
@@ -97,14 +111,18 @@ query SyncPosts(
       id
       title
       content
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       threadID
       thread {
         id
         subject
-        featuredImg
         createdAt
         updatedAt
         _version
@@ -124,14 +142,24 @@ query GetPost($id: ID!) {
     id
     title
     content
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     threadID
     thread {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {
@@ -157,14 +185,18 @@ query ListPosts(
       id
       title
       content
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       threadID
       thread {
         id
         subject
-        featuredImg
         createdAt
         updatedAt
         _version
@@ -258,7 +290,12 @@ query SearchThreads(
     items {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {
@@ -289,14 +326,18 @@ query SearchPosts(
       id
       title
       content
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       threadID
       thread {
         id
         subject
-        featuredImg
         createdAt
         updatedAt
         _version

@@ -1,23 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Storage } from 'aws-amplify';
-import {
-  APIService,
-  GetPostQuery,
-  GetThreadQuery,
-  SearchablePostSortableFields,
-  SearchableSortDirection,
-  SearchPostsQuery,
-} from '../../API.service';
-
-
-class PostItem {
-  title: string;
-  abstract: string;
-  featuredImg: string;
-  link: string;
-  createdAt: string;
-}
+import { Subscription } from 'rxjs';
+import { Post } from '../../../models';
+import { APIService, GetThreadQuery, SearchablePostSortableFields, SearchableSortDirection, SearchPostsQuery } from '../../API.service';
+import { S3StorageService } from '../../s3storage/s3StorageService';
 
 @Component({
   selector: 'app-thread-post',
@@ -26,48 +12,36 @@ class PostItem {
 })
 export class ThreadPostComponent implements OnInit, OnDestroy {
 
-  idSub: any;
+  idSub: Subscription;
 
-  posts: GetPostQuery[] = [];
+  posts: Post[] = [];
 
-  postItems: PostItem[] = [];
+  thread: GetThreadQuery;
 
   domParser: DOMParser = new DOMParser();
 
-  threadSubject: string;
+  constructor(private readonly router: Router,
+              private readonly apiService: APIService,
+              private readonly route: ActivatedRoute,
+              public readonly s3StorageService: S3StorageService) {
 
-  constructor(private readonly router: Router,private readonly apiService: APIService, private readonly route: ActivatedRoute) { }
+  }
 
   ngOnInit() {
     this.idSub = this.route.params.subscribe(async (params: any) => {
       this.apiService.GetThread(params?.id)
         .then((thread: GetThreadQuery) => {
-        this.threadSubject = thread.subject;
+        this.thread = thread;
       })
         .catch(_ => {
           this.router.navigate(['404']);
         })
 
       this.apiService.SearchPosts(
-        {
-          threadID: {
-            eq: params?.id
-          }
-        },
-        {
-          field: SearchablePostSortableFields.createdAt,
-          direction: SearchableSortDirection.desc
-        })
+        { threadID: { eq: params?.id } },
+        { field: SearchablePostSortableFields.createdAt, direction: SearchableSortDirection.desc })
         .then(({ items: posts }: SearchPostsQuery) => {
-          posts.map((post: GetPostQuery) => {
-            const postItem: PostItem = new PostItem();
-            this.postItems.push(postItem);
-            Storage.get(post.featuredImg).then((featuredImg: string) => postItem.featuredImg = featuredImg);
-            postItem.title = post.title;
-            postItem.link = post.id;
-            postItem.abstract = this.domParser.parseFromString(post.content, 'text/html')?.querySelector('p')?.innerText?.substring(0, 400) + '...';
-            postItem.createdAt = post.createdAt;
-          });
+          this.posts = posts;
         })
         .catch(_ => {
           this.router.navigate(['404']);

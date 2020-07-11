@@ -24,9 +24,9 @@
           </select>
 
         </div>
-        <quill-editor formControlName="postContent" ></quill-editor>
-        <button id="cancelBtn" type="button" mdbBtn class="m-0 w-50 flex-1" color="grey" mdbWavesEffect>Cancel</button>
-        <button id="submitBtn" [disabled]="!(postTitle.valid && postContent.valid && postThread.valid)" type="submit" mdbBtn class="m-0 w-50 flex-1" color="primary" mdbWavesEffect>Submit</button>
+        <div id="post-compose-editor"></div>
+        <button id="cancelBtn" type="button" mdbBtn class="m-0 w-50 flex-1 mt-2" color="grey" mdbWavesEffect>Cancel</button>
+        <button id="submitBtn" [disabled]="!(postTitle.valid && postContent && postThread.valid)" type="submit" mdbBtn class="m-0 w-50 flex-1 mt-2" color="primary" mdbWavesEffect>Submit</button>
       </mdb-card-body>
     </mdb-card>
   </form>

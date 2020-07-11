@@ -4,6 +4,7 @@ import { Storage } from 'aws-amplify';
 import { MdbFileUploadComponent } from 'mdb-file-upload';
 import { v4 as uuidv4 } from 'uuid';
 import { APIService } from '../../API.service';
+import { EditorService } from '../../editor/editor.service';
 
 @Component({
   selector: 'app-compose-post',
@@ -17,20 +18,25 @@ export class PostComposeComponent implements OnInit, AfterViewInit {
 
   composePostForm: FormGroup;
 
+  postComposeEditor: any;
+
   threads: any;
 
-  constructor(private formBuilder: FormBuilder, private apiService: APIService) {
+  constructor(private formBuilder: FormBuilder,
+              private apiService: APIService,
+              private readonly editorService: EditorService) {
   }
 
   async ngOnInit(): Promise<void> {
     this.composePostForm = this.formBuilder.group({
       postTitle: [ null, [ Validators.required ] ],
       postFeaturedImg: [ null, [ Validators.required ] ],
-      postContent: [ null, [ Validators.required, Validators.nullValidator ] ],
       postThread: [ null, [ Validators.required, Validators.minLength(8) ] ]
     });
 
-    this.threads = (await this.apiService.ListThreads()).items;
+    this.postComposeEditor = await this.editorService.buildEditorAsync('div#post-compose-editor');
+
+    this.apiService.ListThreads().then(({ items }) => this.threads = items);
   }
 
   get postTitle() {
@@ -41,12 +47,12 @@ export class PostComposeComponent implements OnInit, AfterViewInit {
     return this.composePostForm.get('postFeaturedImg');
   }
 
-  get postContent() {
-    return this.composePostForm.get('postContent');
-  }
-
   get postThread() {
     return this.composePostForm.get('postThread');
+  }
+
+  get postContent() {
+    return this.postComposeEditor.html.get();
   }
 
   ngAfterViewInit(): void {
@@ -70,14 +76,15 @@ export class PostComposeComponent implements OnInit, AfterViewInit {
       if(editorInput.postFeaturedImg) {
         fileName = uuidv4() + '.' + editorInput.postFeaturedImg.name;
         await Storage.put(fileName, editorInput.postFeaturedImg, {
-          contentType: 'image/jpeg'
+          contentType: 'image/jpeg',
+          acl: 'public-read'
         });
       }
 
       await this.apiService.CreatePost({
         title: editorInput.postTitle,
-        content: editorInput.postContent,
-        featuredImg: fileName,
+        content: this.postContent,
+        featuredImg: fileName ? { bucket: 'blog181257-env', region: 'us-west-2', path: 'public', fileName: fileName } : null,
         threadID: editorInput.postThread
       });
     }
@@ -89,6 +96,7 @@ export class PostComposeComponent implements OnInit, AfterViewInit {
 
     alert('Post composed successfully!');
     this.composePostForm.reset();
+    this.postComposeEditor.html.set(null);
     this.postFeaturedImgEl.reset();
   }
 

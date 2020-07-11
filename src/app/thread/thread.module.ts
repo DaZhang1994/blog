@@ -4,9 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MdbFileUploadModule } from 'mdb-file-upload';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
+import { S3storageModule } from '../s3storage/s3storage.module';
 import { ThreadComposeComponent } from './thread-compose/thread-compose.component';
-import { ThreadPostComponent } from './thread-post/thread-post.component';
 import { ThreadEditComponent } from './thread-edit/thread-edit.component';
+import { ThreadPostComponent } from './thread-post/thread-post.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ThreadEditComponent } from './thread-edit/thread-edit.component';
     ReactiveFormsModule,
     FormsModule,
     MdbFileUploadModule,
+    S3storageModule
   ]
 })
 export class ThreadModule { }

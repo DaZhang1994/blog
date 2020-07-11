@@ -4,10 +4,11 @@ import { schema } from './schema';
 
 
 
-const { Thread, Post, Contact } = initSchema(schema);
+const { Thread, Post, Contact, S3Object } = initSchema(schema);
 
 export {
   Thread,
   Post,
-  Contact
+  Contact,
+  S3Object
 };

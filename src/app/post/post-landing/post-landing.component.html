@@ -11,24 +11,24 @@
     <mdb-card-body>
 
       <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'" [animation]="'slide'">
-        <mdb-carousel-item *ngFor="let postCardSlider of postCardSliders">
-          <div class="col-md-4 pb-2" *ngFor="let postCard of postCardSlider">
+        <mdb-carousel-item *ngFor="let postSlider of postSliders">
+          <div class="col-md-4 pb-2" *ngFor="let post of postSlider">
             <mdb-card class="my-1 h-100">
               <div class="view overlay">
-                <a [routerLink]="'view/' + postCard.link">
-                  <mdb-card-img [src]="postCard.featuredImg ? postCard.featuredImg : 'assets/img/placeholder.png'" alt="Card image cap"></mdb-card-img>
+                <a [routerLink]="'view/' + post.id">
+                  <mdb-card-img [src]="post?.featuredImg ? s3StorageService.getS3ObjectUrl(post.featuredImg) : 'assets/img/placeholder.png'" alt="Card image cap"></mdb-card-img>
                   <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
                   </div>
                 </a>
               </div>
               <mdb-card-body>
                 <mdb-card-title>
-                  <h4>{{ postCard.title }}</h4>
+                  <h3><strong>{{ post.title }}</strong></h3>
                 </mdb-card-title>
-                <p>{{ postCard.abstract }}</p>
+                <p>{{ domParser.parseFromString(post?.content, 'text/html')?.body.innerText?.substring(0, 300) + '...' }}</p>
               </mdb-card-body>
               <mdb-card-footer>
-                <a [routerLink]="'view/' + postCard.link" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Read More</a>
+                <a [routerLink]="'view/' + post.id" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Read More</a>
               </mdb-card-footer>
             </mdb-card>
           </div>
@@ -43,18 +43,18 @@
     </mdb-card-header>
 
     <mdb-card-body>
-      <div class="row" *ngFor="let threadThumbnailRow of threadThumbnailRows" >
+      <div class="row" *ngFor="let threadSlider of threadSliders">
 
-        <div *ngFor="let threadThumbnail of threadThumbnailRow" class="col-md-4 mx-auto my-3" mdbWavesEffect>
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect *ngFor="let thread of threadSlider">
           <div class="view overlay card">
-            <a [routerLink]="'/threads/view/' + threadThumbnail.link">
+            <a [routerLink]="'/threads/view/' + thread.id">
               <img
                 class="img-fluid"
-                [src]="threadThumbnail?.featuredImg ? threadThumbnail.featuredImg : 'assets/img/placeholder.png'"
-                [alt]="threadThumbnail?.subject"
+                [src]="thread?.featuredImg ? s3StorageService.getS3ObjectUrl(thread.featuredImg) : 'assets/img/placeholder.png'"
+                [alt]="thread?.subject"
               />
               <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
-                <h2 class="white-text">{{ threadThumbnail?.subject }}</h2>
+                <h2 class="white-text">{{ thread?.subject }}</h2>
               </div>
             </a>
           </div>

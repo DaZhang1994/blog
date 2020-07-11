@@ -3,7 +3,12 @@ subscription OnCreateThread {
   onCreateThread {
     id
     subject
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     posts {
@@ -11,7 +16,6 @@ subscription OnCreateThread {
         id
         title
         content
-        featuredImg
         createdAt
         updatedAt
         threadID
@@ -31,7 +35,12 @@ subscription OnUpdateThread {
   onUpdateThread {
     id
     subject
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     posts {
@@ -39,7 +48,6 @@ subscription OnUpdateThread {
         id
         title
         content
-        featuredImg
         createdAt
         updatedAt
         threadID
@@ -59,7 +67,12 @@ subscription OnDeleteThread {
   onDeleteThread {
     id
     subject
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     posts {
@@ -67,7 +80,6 @@ subscription OnDeleteThread {
         id
         title
         content
-        featuredImg
         createdAt
         updatedAt
         threadID
@@ -88,14 +100,24 @@ subscription OnCreatePost {
     id
     title
     content
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     threadID
     thread {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {
@@ -116,14 +138,24 @@ subscription OnUpdatePost {
     id
     title
     content
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     threadID
     thread {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {
@@ -144,14 +176,24 @@ subscription OnDeletePost {
     id
     title
     content
-    featuredImg
+    featuredImg {
+      bucket
+      region
+      path
+      fileName
+    }
     createdAt
     updatedAt
     threadID
     thread {
       id
       subject
-      featuredImg
+      featuredImg {
+        bucket
+        region
+        path
+        fileName
+      }
       createdAt
       updatedAt
       posts {
