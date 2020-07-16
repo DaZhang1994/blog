@@ -9,7 +9,7 @@ import { PostComposeComponent } from './post/post-compose/post-compose.component
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { PostEditComponent } from './post/post-edit/post-edit.component';
 import { PostLandingComponent } from './post/post-landing/post-landing.component';
-import { ResumeComponent } from './resume/resume.component';
+import { AboutComponent } from './about/about.component';
 import { ThreadComposeComponent } from './thread/thread-compose/thread-compose.component';
 import { ThreadEditComponent } from './thread/thread-edit/thread-edit.component';
 import { ThreadPostComponent } from './thread/thread-post/thread-post.component';
@@ -97,12 +97,12 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'resume',
+    path: 'about',
     component: HeaderComponent,
     children: [
       {
         path: '',
-        component: ResumeComponent,
+        component: AboutComponent,
         pathMatch: 'full'
       },
       {

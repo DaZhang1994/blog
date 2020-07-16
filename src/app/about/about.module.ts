@@ -3,18 +3,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { ResumeComponent } from './resume.component';
+import { AboutComponent } from './about.component';
 
 @NgModule({
-  declarations: [ResumeComponent],
+  declarations: [AboutComponent],
   imports: [
     CommonModule,
     MDBBootstrapModulesPro.forRoot(),
     RouterModule,
     ReactiveFormsModule,
-    FormsModule,
-    NgxExtendedPdfViewerModule,
+    FormsModule
   ],
 })
-export class ResumeModule { }
+export class AboutModule { }

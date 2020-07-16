@@ -14,7 +14,7 @@ import { EditorModule } from './editor/editor.module';
 import { ErrorModule } from './error/error.module';
 import { HeaderModule } from './header/header.module';
 import { LandingModule } from './landing/landing.module';
-import { ResumeModule } from './resume/resume.module';
+import { AboutModule } from './about/about.module';
 import { PostModule } from './post/post.module';
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { ThreadModule } from './thread/thread.module';
@@ -39,7 +39,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     PostModule,
     ContactModule,
     MdbFileUploadModule,
-    ResumeModule,
+    AboutModule,
     AuthModule,
     ThreadModule,
     EditorModule,
