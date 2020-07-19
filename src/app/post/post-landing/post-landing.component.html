@@ -23,12 +23,25 @@
               </div>
               <mdb-card-body>
                 <mdb-card-title>
-                  <h3><strong>{{ post?.title }}</strong></h3>
+                  <h3 *ngIf="post"><strong>{{ post?.title }}</strong></h3>
+                  <div *ngIf="!post">
+                    <div class="loading-line" style="height: 15px"></div>
+                    <div class="loading-line" style="height: 15px"></div>
+                  </div>
                   <p class="font-weight-bold dark-grey-text">
-                    <mdb-icon far icon="calendar-alt" class="pr-2"></mdb-icon>{{ post?.createdAt | date:'medium' }}
+                    <mdb-icon *ngIf="post" far icon="calendar-alt" class="pr-2"></mdb-icon>{{ post?.createdAt | date:'medium' }}
                   </p>
+                  <div *ngIf="!post" class="loading-line"></div>
                 </mdb-card-title>
-                <p>{{ domParser.parseFromString(post?.content, 'text/html')?.body.innerText?.substring(0, 300) + '...' }}</p>
+                <div *ngIf="!post">
+                  <div class="loading-line" style="width: 99%"></div>
+                  <div class="loading-line" style="width: 94%"></div>
+                  <div class="loading-line" style="width: 95%"></div>
+                  <div class="loading-line" style="width: 93%"></div>
+                  <div class="loading-line" style="width: 97%"></div>
+                  <div class="loading-line" style="width: 92%"></div>
+                </div>
+                <p *ngIf="post">{{ domParser.parseFromString(post?.content, 'text/html')?.body.innerText?.substring(0, 300) + '...' }}</p>
               </mdb-card-body>
               <mdb-card-footer>
                 <a [routerLink]="'view/' + post?.id" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Read More</a>
@@ -46,11 +59,11 @@
     </mdb-card-header>
 
     <mdb-card-body>
-      <div class="row" *ngFor="let threadSlider of threadSliders">
+      <div class="row" *ngFor="let threadRow of threadRows">
 
-        <div class="col-md-4 mx-auto my-3" mdbWavesEffect *ngFor="let thread of threadSlider">
+        <div class="col-md-4 mx-auto my-3" mdbWavesEffect *ngFor="let thread of threadRow">
           <div class="view overlay card">
-            <a [routerLink]="'/threads/view/' + thread.id">
+            <a [routerLink]="'/threads/view/' + thread?.id">
               <img
                 class="img-fluid"
                 [src]="thread?.featuredImg ? s3StorageService.getS3ObjectUrl(thread.featuredImg) : 'assets/img/placeholder.png'"

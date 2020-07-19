@@ -19,11 +19,11 @@ const NEWEST_LIMIT = 9;
 })
 export class PostLandingComponent implements OnInit {
 
-  posts: Post[] = [];
-  postSliders: Post[][] = [[]];
+  posts: Post[] = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
+  postSliders: Post[][] = [[undefined, undefined, undefined], [undefined, undefined, undefined], [undefined, undefined, undefined]];
 
-  threads: Thread[] = [];
-  threadSliders: Thread[][] = [[]];
+  threads: Thread[] = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
+  threadRows: Thread[][] = [[undefined, undefined, undefined], [undefined, undefined, undefined], [undefined, undefined, undefined]];
 
   domParser: DOMParser = new DOMParser();
 
@@ -61,7 +61,7 @@ export class PostLandingComponent implements OnInit {
       .then(({ items: threads }: SearchThreadsQuery)=> {
         // @ts-ignore
         this.threads = threads;
-        this.threadSliders = this.chunk(this.threads, 3);
+        this.threadRows = this.chunk(this.threads, 3);
       });
   }
 

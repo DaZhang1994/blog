@@ -3,7 +3,6 @@
   background-size: cover;
 }
 
-
 /* Post Carousel */
 .carousel-item {
   &.active, &.carousel-item-right, &.carousel-item-next {
@@ -11,4 +10,5 @@
     flex-wrap: wrap
   }
 }
+
 
