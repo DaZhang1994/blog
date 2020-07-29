@@ -28,6 +28,7 @@ export class EditorService {
 
     editor.opts.imageUploadToS3 = uploadConfig;
     editor.opts.videoUploadToS3 = uploadConfig;
+    editor.opts.fileUploadToS3 = uploadConfig;
 
     editor.opts.events = {
       'image.error': () => {
@@ -37,6 +38,10 @@ export class EditorService {
       'video.error': () => {
         this.httpClient.get('https://tks8xzz7ud.execute-api.us-west-2.amazonaws.com/blog_env/getS3Signature')
           .subscribe(config => editor.opts.videoUploadToS3 = config);
+      },
+      'file.error': () => {
+        this.httpClient.get('https://tks8xzz7ud.execute-api.us-west-2.amazonaws.com/blog_env/getS3Signature')
+          .subscribe(config => editor.opts.fileUploadToS3 = config);
       }
     }
 
