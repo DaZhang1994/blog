@@ -1,4 +1,12 @@
-/* Carousel */
-.carousel-caption {
-  bottom: 33vh;
+main {
+  background: url('../../assets/img/slide1.jpg') no-repeat fixed center/cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  position: relative;
+  font-size: 44px;
 }
