@@ -8,6 +8,7 @@ import { S3storageModule } from '../s3storage/s3storage.module';
 import { ThreadComposeComponent } from './thread-compose/thread-compose.component';
 import { ThreadEditComponent } from './thread-edit/thread-edit.component';
 import { ThreadPostComponent } from './thread-post/thread-post.component';
+import { ThreadRoutingModule } from './thread-routing.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ThreadPostComponent } from './thread-post/thread-post.component';
     ReactiveFormsModule,
     FormsModule,
     MdbFileUploadModule,
-    S3storageModule
+    S3storageModule,
+    ThreadRoutingModule
   ]
 })
 export class ThreadModule { }

@@ -1,17 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent } from './auth/auth.component';
-import { ContactComponent } from './contact/contact.component';
 import { PageNotFound } from './error/page_not_found/page_not_found.component';
 import { LandingComponent } from './landing/landing.component';
-import { PostComposeComponent } from './post/post-compose/post-compose.component';
-import { PostDetailComponent } from './post/post-detail/post-detail.component';
-import { PostEditComponent } from './post/post-edit/post-edit.component';
-import { PostLandingComponent } from './post/post-landing/post-landing.component';
-import { AboutComponent } from './about/about.component';
-import { ThreadComposeComponent } from './thread/thread-compose/thread-compose.component';
-import { ThreadEditComponent } from './thread/thread-edit/thread-edit.component';
-import { ThreadPostComponent } from './thread/thread-post/thread-post.component';
 
 const routes: Routes = [
   {
@@ -21,53 +11,23 @@ const routes: Routes = [
   },
   {
     path: 'posts',
-    component: PostLandingComponent,
-    pathMatch: 'full'
+    loadChildren: () => import('./post/post.module').then(m => m.PostModule)
   },
   {
-    path: 'posts/view/:id',
-    component: PostDetailComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'posts/compose',
-    component: PostComposeComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'posts/edit/:id',
-    component: PostEditComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'threads/view/:id',
-    component: ThreadPostComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'threads/compose',
-    component: ThreadComposeComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'threads/edit/:id',
-    component: ThreadEditComponent,
-    pathMatch: 'full'
+    path: 'threads',
+    loadChildren: () => import('./thread/thread.module').then(m => m.ThreadModule)
   },
   {
     path: 'auth',
-    component: AuthComponent,
-    pathMatch: 'full'
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'about',
-    component: AboutComponent,
-    pathMatch: 'full'
+    loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
   },
   {
     path: 'contact',
-    component: ContactComponent,
-    pathMatch: 'full'
+    loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
   },
   {
     path: '**',

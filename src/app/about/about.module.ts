@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 import { AboutComponent } from './about.component';
+import { AboutRoutingModule } from './about-routing.module';
 
 @NgModule({
   declarations: [AboutComponent],
@@ -12,7 +13,8 @@ import { AboutComponent } from './about.component';
     MDBBootstrapModulesPro.forRoot(),
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AboutRoutingModule
   ],
 })
 export class AboutModule { }

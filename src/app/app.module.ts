@@ -1,52 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdbFileUploadModule } from 'mdb-file-upload';
 import { MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule, ToastService } from 'ng-uikit-pro-standard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
-import { ContactModule } from './contact/contact.module';
-import { EditorModule } from './editor/editor.module';
 import { ErrorModule } from './error/error.module';
 import { FooterModule } from './footer/footer.module';
 import { HeaderModule } from './header/header.module';
 import { LandingModule } from './landing/landing.module';
-import { AboutModule } from './about/about.module';
-import { PostModule } from './post/post.module';
-import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
-import { ThreadModule } from './thread/thread.module';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    AmplifyUIAngularModule,
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     MDBBootstrapModulesPro.forRoot(),
     ToastModule.forRoot(),
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
     HeaderModule,
-    ErrorModule,
     LandingModule,
-    CommonModule,
-    PostModule,
-    ContactModule,
-    MdbFileUploadModule,
-    AboutModule,
-    AuthModule,
-    ThreadModule,
-    EditorModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
-    FooterModule
+    FooterModule,
+    ErrorModule,
   ],
   providers: [
     MDBSpinningPreloader,

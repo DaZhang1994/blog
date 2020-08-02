@@ -6,6 +6,7 @@ import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 import { Config } from '../../../config';
 import { ContactComponent } from './contact.component';
 import { AgmCoreModule } from '@agm/core';
+import { ContactRoutingModule } from './contact-routing.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     AgmCoreModule.forRoot({
       apiKey: Config.googleMapAPIKey
-    })
+    }),
+    ContactRoutingModule
   ]
 })
 export class ContactModule { }

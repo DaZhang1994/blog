@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 import { AuthComponent } from './auth.component';
+import { AuthRoutingModule } from './auth-routing.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AuthComponent } from './auth.component';
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    AmplifyUIAngularModule
+    AmplifyUIAngularModule,
+    AuthRoutingModule
   ]
 })
 export class AuthModule { }
