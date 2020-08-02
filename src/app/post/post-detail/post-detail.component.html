@@ -12,6 +12,7 @@
     <mdb-card-body>
       <h2 class="text-center"><strong>{{ post?.title }}</strong></h2>
       <h6 class="text-center"><em>{{ post?.createdAt | date:'medium' }}</em></h6>
+      <hr>
       <div class="fr-view" [innerHTML]="post?.content" ></div>
     </mdb-card-body>
   </mdb-card>
