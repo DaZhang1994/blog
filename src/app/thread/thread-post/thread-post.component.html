@@ -38,7 +38,7 @@
             <p class="font-weight-bold dark-grey-text">
               <mdb-icon far icon="calendar-alt" class="pr-2"></mdb-icon>{{ post?.createdAt | date:'medium' }}
             </p>
-            <p>{{ domParser.parseFromString(post?.content, 'text/html')?.body.innerText?.substring(0, 800) + '...' }}</p>
+            <p class="abstract">{{ domParser.parseFromString(post?.content, 'text/html')?.body.innerText }}</p>
             <!-- Read more button -->
             <a class="ml-0" mdbBtn color="primary" mdbWavesEffect [routerLink]="'/posts/view/' + post.id">Read More</a>
 

@@ -7,5 +7,8 @@ import { HeaderComponent } from './header.component';
 @NgModule({
   declarations: [HeaderComponent],
   imports: [CommonModule, MDBBootstrapModulesPro.forRoot(), RouterModule],
+  exports: [
+    HeaderComponent,
+  ],
 })
 export class HeaderModule {}

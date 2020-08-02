@@ -1,6 +1,14 @@
 #thread-post {
-  background: url('../../../assets/img/thread_bg.jpg') no-repeat fixed center;
-  background-size: cover;
+  background: url('../../../assets/img/thread_bg.jpg') no-repeat fixed center/cover;
+  word-break: break-all;
+
+  .abstract {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:7;
+  }
 }
 
 

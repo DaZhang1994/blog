@@ -9,6 +9,15 @@
 @media only screen and (max-width: 768px) {
   .navbar {
     background-color: #4285f4;
+    text-align: center;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    .ml-auto {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
   }
 }
 

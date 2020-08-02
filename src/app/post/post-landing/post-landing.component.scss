@@ -1,6 +1,26 @@
-#post-landing {
-  background: url('../../../assets/img/thread_bg.jpg') no-repeat fixed center;
-  background-size: cover;
+section#post-landing {
+  background: url('../../../assets/img/thread_bg.jpg') no-repeat fixed center/cover;
+
+  mdb-carousel {
+    word-break: break-all;
+
+    .view.overlay {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      img {
+        height: 340px;
+        width:100%;
+      }
+    }
+
+    .abstract {
+      overflow:hidden;
+      text-overflow:ellipsis;
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:5;
+    }
+  }
 }
 
 /* Post Carousel */
@@ -10,5 +30,3 @@
     flex-wrap: wrap
   }
 }
-
-

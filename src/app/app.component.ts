@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 
-export class AppComponent { }
+export class AppComponent {
+  route: string;
+
+  constructor(private readonly router: Router) {
+    this.route = this.router.url;
+  }
+}
 
 

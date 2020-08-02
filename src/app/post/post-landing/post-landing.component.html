@@ -16,7 +16,7 @@
             <mdb-card class="my-1 h-100">
               <div class="view overlay">
                 <a [routerLink]="'view/' + post?.id">
-                  <mdb-card-img [src]="post?.featuredImg ? s3StorageService.getS3ObjectUrl(post.featuredImg) : 'assets/img/placeholder.png'" alt="Card image cap"></mdb-card-img>
+                  <img [src]="post?.featuredImg ? s3StorageService.getS3ObjectUrl(post.featuredImg) : 'assets/img/placeholder.png'" [alt]="post?.title">
                   <div class="mask waves-effect waves-light flex-center rgba-grey-strong">
                   </div>
                 </a>
@@ -41,7 +41,7 @@
                   <div class="loading-line" style="width: 97%"></div>
                   <div class="loading-line" style="width: 92%"></div>
                 </div>
-                <p *ngIf="post">{{ domParser.parseFromString(post?.content, 'text/html')?.body.innerText?.substring(0, 300) + '...' }}</p>
+                <p *ngIf="post" class="abstract">{{ domParser.parseFromString(post?.content, 'text/html')?.body.innerText }}</p>
               </mdb-card-body>
               <mdb-card-footer>
                 <a [routerLink]="'view/' + post?.id" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Read More</a>

@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { ContactModule } from './contact/contact.module';
 import { EditorModule } from './editor/editor.module';
 import { ErrorModule } from './error/error.module';
+import { FooterModule } from './footer/footer.module';
 import { HeaderModule } from './header/header.module';
 import { LandingModule } from './landing/landing.module';
 import { AboutModule } from './about/about.module';
@@ -44,7 +45,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     ThreadModule,
     EditorModule,
     FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    FooterModule
   ],
   providers: [
     MDBSpinningPreloader,

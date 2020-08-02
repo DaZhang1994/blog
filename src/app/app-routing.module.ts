@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { ContactComponent } from './contact/contact.component';
 import { PageNotFound } from './error/page_not_found/page_not_found.component';
-import { HeaderComponent } from './header/header.component';
 import { LandingComponent } from './landing/landing.component';
 import { PostComposeComponent } from './post/post-compose/post-compose.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
@@ -17,127 +16,64 @@ import { ThreadPostComponent } from './thread/thread-post/thread-post.component'
 const routes: Routes = [
   {
     path: '',
-    component: HeaderComponent,
-    children: [
-      {
-        path: '',
-        component: LandingComponent,
-        pathMatch: 'full'
-      },
-    ],
+    component: LandingComponent,
+    pathMatch: 'full'
   },
   {
     path: 'posts',
-    component: HeaderComponent,
-    children: [
-      {
-        path: '',
-        component: PostLandingComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: 'view/:id',
-        component: PostDetailComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: 'compose',
-        component: PostComposeComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: 'edit/:id',
-        component: PostEditComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: '**',
-        component: PageNotFound,
-      },
-    ],
+    component: PostLandingComponent,
+    pathMatch: 'full'
   },
   {
-    path: 'threads',
-    component: HeaderComponent,
-    children: [
-      {
-        path: 'view/:id',
-        component: ThreadPostComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: 'compose',
-        component: ThreadComposeComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: 'edit/:id',
-        component: ThreadEditComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: '**',
-        component: PageNotFound,
-      },
-    ],
+    path: 'posts/view/:id',
+    component: PostDetailComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'posts/compose',
+    component: PostComposeComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'posts/edit/:id',
+    component: PostEditComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'threads/view/:id',
+    component: ThreadPostComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'threads/compose',
+    component: ThreadComposeComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'threads/edit/:id',
+    component: ThreadEditComponent,
+    pathMatch: 'full'
   },
   {
     path: 'auth',
-    component: HeaderComponent,
-    children: [
-      {
-        path: '',
-        component: AuthComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: '**',
-        component: PageNotFound,
-      },
-    ]
+    component: AuthComponent,
+    pathMatch: 'full'
   },
   {
     path: 'about',
-    component: HeaderComponent,
-    children: [
-      {
-        path: '',
-        component: AboutComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: '**',
-        component: PageNotFound,
-      },
-    ]
+    component: AboutComponent,
+    pathMatch: 'full'
   },
-
   {
     path: 'contact',
-    component: HeaderComponent,
-    children: [
-      {
-        path: '',
-        component: ContactComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: '**',
-        component: PageNotFound,
-      },
-    ],
+    component: ContactComponent,
+    pathMatch: 'full'
   },
   {
     path: '**',
-    component: HeaderComponent,
-    children: [
-      {
-        path: '',
-        component: PageNotFound,
-      },
-    ],
+    component: PageNotFound,
+    pathMatch: 'full'
   }
-
 ];
 
 @NgModule({
