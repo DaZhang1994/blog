@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFound } from './error/page_not_found/page_not_found.component';
 import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
@@ -31,8 +30,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: PageNotFound,
-    pathMatch: 'full'
+    loadChildren: () => import('./error/error.module').then(m => m.ErrorModule)
   }
 ];
 
