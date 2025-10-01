@@ -37,7 +37,7 @@
     "@types/jquery": "^3.5.1",
     "@types/uuid": "^8.0.0",
     "angular-froala-wysiwyg": "^3.1.1-1",
-    "aws-amplify": "^3.0.22",
+    "aws-amplify": "^6.15.7",
     "core-js": "^3.6.5",
     "graphql": "^15.3.0",
     "jquery": "^3.5.1",
